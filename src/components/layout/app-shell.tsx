@@ -4,8 +4,10 @@ import { Topbar } from './topbar'
 import { CommandPalette } from './command-palette'
 import { Toaster } from '../feedback/toaster'
 import { useUiStore } from '../../stores/ui-store'
+import { useGlassPointer } from '../../lib/use-glass-pointer'
 
 export function AppShell() {
+  useGlassPointer()
   const mobileNavOpen = useUiStore((s) => s.mobileNavOpen)
   const setMobileNavOpen = useUiStore((s) => s.setMobileNavOpen)
 

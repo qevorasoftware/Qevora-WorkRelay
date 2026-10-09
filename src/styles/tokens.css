@@ -1,55 +1,61 @@
 /* ============================================================
-   Qevora WorkRelay — Apple pure minimal + Liquid Glass (iOS 26)
-   Light: white canvas. Dark: true black. One accent.
-   Glass: real show-through + specular edge, chrome & overlays only.
+   Qevora WorkRelay — Apple Liquid Glass (iOS 26) tokens
+   Recipe: heavy blur + saturation boost + specular edge +
+   moving highlight + transparent tint over vivid ambient color.
    ============================================================ */
 
 :root {
   --bg: #F5F5F7;
   --surface: #FFFFFF;
   --surface-2: rgba(245, 245, 247, 0.85);
-  --fill: rgba(120, 120, 128, 0.08);
-  --fill-strong: rgba(120, 120, 128, 0.14);
+  --fill: rgba(120, 120, 128, 0.10);
+  --fill-strong: rgba(120, 120, 128, 0.16);
 
   --text: #1D1D1F;
   --text-2: #6E6E73;
   --text-3: #86868B;
 
-  --hairline: rgba(0, 0, 0, 0.09);
-  --hairline-strong: rgba(0, 0, 0, 0.16);
+  --hairline: rgba(0, 0, 0, 0.08);
+  --hairline-strong: rgba(0, 0, 0, 0.15);
 
   --accent: #0071E3;
   --accent-hover: #0077ED;
-  --accent-tint: rgba(0, 113, 227, 0.10);
+  --accent-tint: rgba(0, 113, 227, 0.11);
   --on-accent: #FFFFFF;
 
   --success: #008A00;
-  --success-tint: rgba(52, 199, 89, 0.13);
+  --success-tint: rgba(52, 199, 89, 0.15);
   --warning: #B25000;
-  --warning-tint: rgba(255, 149, 0, 0.14);
+  --warning-tint: rgba(255, 149, 0, 0.16);
   --danger: #D70015;
-  --danger-tint: rgba(255, 59, 48, 0.10);
+  --danger-tint: rgba(255, 59, 48, 0.11);
   --info: #0071E3;
-  --info-tint: rgba(0, 113, 227, 0.10);
+  --info-tint: rgba(0, 113, 227, 0.11);
 
-  /* Liquid Glass — light (over the airy canvas) */
-  --glass-bg: rgba(255, 255, 255, 0.62);
-  --glass-border: rgba(255, 255, 255, 0.85);
-  --glass-specular: rgba(255, 255, 255, 0.95);
-  --glass-inner: rgba(255, 255, 255, 0.30);
-  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+  /* Liquid Glass tints — LOW opacity so the world shows through */
+  --glass-bg: rgba(255, 255, 255, 0.42);
+  --glass-card-bg: rgba(255, 255, 255, 0.55);
+  --glass-sheet-bg: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-specular: rgba(255, 255, 255, 0.85);
+  --glass-bounce: rgba(255, 255, 255, 0.16);
+  --glass-lift: 0 16px 48px rgba(31, 38, 135, 0.16);
 
-  /* Ambient light behind the glass — whisper-subtle, stays minimal */
-  --amb-1: rgba(0, 113, 227, 0.05);
-  --amb-2: rgba(88, 86, 214, 0.045);
-  --amb-3: rgba(255, 149, 0, 0.035);
-
-  --shadow-raised: 0 8px 24px rgba(0, 0, 0, 0.08);
+  /* Vivid ambient — the wallpaper the glass refracts (iOS-style mesh) */
+  --amb-1: rgba(0, 122, 255, 0.30);
+  --amb-2: rgba(94, 92, 230, 0.26);
+  --amb-3: rgba(255, 149, 0, 0.18);
+  --amb-4: rgba(255, 45, 85, 0.13);
+  --amb-5: rgba(50, 200, 190, 0.18);
 
   --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --spring: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --dur-1: 150ms;
   --dur-2: 250ms;
+
+  /* Pointer-driven specular position (updated from AppShell) */
+  --gx: 30%;
+  --gy: 20%;
 
   color-scheme: light;
 }
@@ -65,35 +71,36 @@
   --text-2: #98989D;
   --text-3: #8E8E93;
 
-  --hairline: rgba(255, 255, 255, 0.12);
-  --hairline-strong: rgba(255, 255, 255, 0.2);
+  --hairline: rgba(255, 255, 255, 0.10);
+  --hairline-strong: rgba(255, 255, 255, 0.18);
 
   --accent: #0A84FF;
   --accent-hover: #409CFF;
-  --accent-tint: rgba(10, 132, 255, 0.16);
+  --accent-tint: rgba(10, 132, 255, 0.18);
   --on-accent: #FFFFFF;
 
   --success: #4CD964;
-  --success-tint: rgba(48, 209, 88, 0.16);
+  --success-tint: rgba(48, 209, 88, 0.18);
   --warning: #FF9F0A;
-  --warning-tint: rgba(255, 159, 10, 0.16);
+  --warning-tint: rgba(255, 159, 10, 0.18);
   --danger: #FF453A;
-  --danger-tint: rgba(255, 69, 58, 0.14);
+  --danger-tint: rgba(255, 69, 58, 0.15);
   --info: #0A84FF;
-  --info-tint: rgba(10, 132, 255, 0.16);
+  --info-tint: rgba(10, 132, 255, 0.18);
 
-  /* Liquid Glass — dark: the show-through is the point */
-  --glass-bg: rgba(28, 28, 30, 0.55);
+  --glass-bg: rgba(30, 30, 34, 0.38);
+  --glass-card-bg: rgba(28, 28, 32, 0.52);
+  --glass-sheet-bg: rgba(24, 24, 27, 0.92);
   --glass-border: rgba(255, 255, 255, 0.16);
-  --glass-specular: rgba(255, 255, 255, 0.32);
-  --glass-inner: rgba(160, 170, 255, 0.05);
-  --glass-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+  --glass-specular: rgba(255, 255, 255, 0.34);
+  --glass-bounce: rgba(255, 255, 255, 0.07);
+  --glass-lift: 0 16px 48px rgba(0, 0, 0, 0.55);
 
-  --amb-1: rgba(10, 132, 255, 0.07);
-  --amb-2: rgba(94, 92, 230, 0.06);
-  --amb-3: rgba(255, 159, 10, 0.04);
-
-  --shadow-raised: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --amb-1: rgba(10, 132, 255, 0.34);
+  --amb-2: rgba(94, 92, 230, 0.28);
+  --amb-3: rgba(255, 159, 10, 0.16);
+  --amb-4: rgba(255, 55, 95, 0.17);
+  --amb-5: rgba(48, 209, 88, 0.13);
 
   color-scheme: dark;
 }

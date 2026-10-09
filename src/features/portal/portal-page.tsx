@@ -17,12 +17,14 @@ import { useWorkspaceStore } from '../../stores/workspace-store'
 import { useChatStore } from '../../stores/chat-demo-store'
 import { useUiStore } from '../../stores/ui-store'
 import { CURRENT_USER_ID, userById } from '../../mocks/users'
+import { useGlassPointer } from '../../lib/use-glass-pointer'
 import { cn, dueLabel, relativeTime } from '../../lib/utils'
 import type { Approval, Request } from '../../types'
 
 /** Client workspace — §11: shows ONLY client-safe requests, files,
  *  approvals and project chats. Internal items never appear. */
 export function PortalPage() {
+  useGlassPointer()
   const { clientId } = useParams()
   const navigate = useNavigate()
   const { clients, projects, requests, approvals, files, users, setRequestStatus, decideApproval } = useWorkspaceStore()

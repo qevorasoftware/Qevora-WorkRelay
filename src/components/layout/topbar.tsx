@@ -21,7 +21,7 @@ export function Topbar() {
   const title = routeTitles[base] ?? routeTitles[pathname] ?? 'WorkRelay'
 
   return (
-    <header className="liquid-glass sticky top-3 z-30 mx-4 flex h-[52px] items-center gap-2 rounded-2xl px-3 lg:mx-6">
+    <header className="liquid-glass sticky top-3 z-30 mx-4 flex h-[54px] items-center gap-2 rounded-full px-4 lg:mx-6 lg:px-5">
       <button
         className="btn btn-ghost btn-icon btn-sm lg:hidden"
         aria-label="Open navigation"

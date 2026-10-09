@@ -19,7 +19,7 @@ export function Segmented<T extends string>({ options, value, onChange, label }:
     <div
       role="radiogroup"
       aria-label={label}
-      className="liquid-glass inline-flex items-center gap-0.5 rounded-[10px] p-[3px]"
+      className="liquid-glass inline-flex items-center gap-0.5 rounded-full p-[3px]"
     >
       {options.map((opt) => {
         const active = opt.value === value
@@ -33,7 +33,7 @@ export function Segmented<T extends string>({ options, value, onChange, label }:
             aria-label={opt.label || opt.value}
             onClick={() => onChange(opt.value)}
             className={cn(
-              'relative inline-flex items-center justify-center gap-1.5 rounded-lg px-2.5 py-[5px] text-[12px] font-medium transition-colors',
+              'relative inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-[5px] text-[12px] font-medium transition-colors',
               active ? 'text-[var(--text)]' : 'text-muted hover:text-[var(--text)]'
             )}
           >
@@ -41,7 +41,7 @@ export function Segmented<T extends string>({ options, value, onChange, label }:
               <motion.span
                 layoutId={`seg-${label}`}
                 transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 500, damping: 38 }}
-                className="absolute inset-0 rounded-lg bg-[var(--surface)] shadow-sm"
+                className="absolute inset-0 rounded-full bg-[var(--surface)] shadow-sm"
               />
             )}
             <span className="relative z-10 inline-flex items-center gap-1.5">
