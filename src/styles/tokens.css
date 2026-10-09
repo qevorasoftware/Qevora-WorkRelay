@@ -1,0 +1,84 @@
+/* ============================================================
+   Qevora WorkRelay — Apple pure minimal tokens
+   Light: white canvas / #F5F5F7 surfaces. Dark: true black.
+   One accent. Hairlines over shadows. Type over decoration.
+   ============================================================ */
+
+:root {
+  --bg: #F5F5F7;                 /* Apple canvas gray */
+  --surface: #FFFFFF;            /* cards, sheets */
+  --surface-2: rgba(245, 245, 247, 0.85);  /* nested / hover fills */
+  --fill: rgba(120, 120, 128, 0.08);       /* iOS systemFill */
+  --fill-strong: rgba(120, 120, 128, 0.14);
+
+  --text: #1D1D1F;               /* Apple near-black */
+  --text-2: #6E6E73;             /* secondary */
+  --text-3: #86868B;             /* tertiary / captions */
+
+  --hairline: rgba(0, 0, 0, 0.09);
+  --hairline-strong: rgba(0, 0, 0, 0.16);
+
+  --accent: #0071E3;             /* Apple blue */
+  --accent-hover: #0077ED;
+  --accent-tint: rgba(0, 113, 227, 0.10);
+  --on-accent: #FFFFFF;
+
+  --success: #008A00;
+  --success-tint: rgba(52, 199, 89, 0.13);
+  --warning: #B25000;
+  --warning-tint: rgba(255, 149, 0, 0.14);
+  --danger: #D70015;
+  --danger-tint: rgba(255, 59, 48, 0.10);
+  --info: #0071E3;
+  --info-tint: rgba(0, 113, 227, 0.10);
+
+  /* Sidebar / topbar chrome — the only translucency in the app */
+  --chrome-bg: rgba(245, 245, 247, 0.78);
+  --chrome-blur: blur(20px) saturate(180%);
+
+  --shadow-card: none;
+  --shadow-raised: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* Apple motion: standard easing, tight durations */
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --dur-1: 150ms;
+  --dur-2: 250ms;
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #000000;
+  --surface: #1C1C1E;            /* Apple elevated dark */
+  --surface-2: rgba(44, 44, 46, 0.6);
+  --fill: rgba(120, 120, 128, 0.22);
+  --fill-strong: rgba(120, 120, 128, 0.32);
+
+  --text: #F5F5F7;
+  --text-2: #98989D;
+  --text-3: #8E8E93;
+
+  --hairline: rgba(255, 255, 255, 0.12);
+  --hairline-strong: rgba(255, 255, 255, 0.2);
+
+  --accent: #0A84FF;
+  --accent-hover: #409CFF;
+  --accent-tint: rgba(10, 132, 255, 0.16);
+  --on-accent: #FFFFFF;
+
+  --success: #4CD964;
+  --success-tint: rgba(48, 209, 88, 0.16);
+  --warning: #FF9F0A;
+  --warning-tint: rgba(255, 159, 10, 0.16);
+  --danger: #FF453A;
+  --danger-tint: rgba(255, 69, 58, 0.14);
+  --info: #0A84FF;
+  --info-tint: rgba(10, 132, 255, 0.16);
+
+  --chrome-bg: rgba(18, 18, 20, 0.72);
+
+  --shadow-card: none;
+  --shadow-raised: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+  color-scheme: dark;
+}

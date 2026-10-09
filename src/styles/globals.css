@@ -1,0 +1,283 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-muted: var(--text-2);
+  --color-faint: var(--text-3);
+  --color-card: var(--surface);
+  --color-line: var(--hairline);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--on-accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display',
+    'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+  html[data-density='compact'] {
+    font-size: 15px;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    letter-spacing: -0.01em;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: var(--accent-tint);
+  }
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 125, 250, 0.35);
+    border-radius: 10px;
+  }
+  * {
+    border-color: var(--hairline);
+  }
+}
+
+/* ---------- Chrome: sidebar & topbar (the only glass) ---------- */
+.chrome {
+  background: var(--chrome-bg);
+  -webkit-backdrop-filter: var(--chrome-blur);
+  backdrop-filter: var(--chrome-blur);
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+}
+.card-hover {
+  transition: border-color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease);
+}
+.card-hover:hover {
+  border-color: var(--hairline-strong);
+}
+
+/* ---------- Buttons (Apple: solid, quiet, pill-ish radius) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.25rem;
+  padding: 0 0.95rem;
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  font-weight: 590;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition:
+    background-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease),
+    opacity var(--dur-1) var(--ease);
+}
+.btn:active {
+  opacity: 0.7;
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.btn-sm {
+  height: 1.9rem;
+  padding: 0 0.7rem;
+  font-size: 0.78rem;
+  border-radius: 8px;
+}
+.btn-icon {
+  width: 2.25rem;
+  padding: 0;
+}
+.btn-icon.btn-sm {
+  width: 1.9rem;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+.btn-secondary {
+  background: var(--fill);
+  color: var(--text);
+}
+.btn-secondary:hover {
+  background: var(--fill-strong);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-2);
+}
+.btn-ghost:hover {
+  background: var(--fill);
+  color: var(--text);
+}
+
+/* ---------- Badges: tint fill, no ring ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 590;
+  white-space: nowrap;
+}
+.badge-accent  { background: var(--accent-tint);  color: var(--accent); }
+.badge-success { background: var(--success-tint); color: var(--success); }
+.badge-warning { background: var(--warning-tint); color: var(--warning); }
+.badge-danger  { background: var(--danger-tint);  color: var(--danger); }
+.badge-info    { background: var(--info-tint);    color: var(--info); }
+.badge-neutral { background: var(--fill);         color: var(--text-2); }
+
+/* ---------- Inputs ---------- */
+.input {
+  width: 100%;
+  height: 2.25rem;
+  padding: 0 0.7rem;
+  border-radius: 10px;
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.8125rem;
+  transition: border-color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
+}
+textarea.input {
+  height: auto;
+  padding: 0.55rem 0.7rem;
+  resize: vertical;
+  min-height: 4.2rem;
+}
+.input::placeholder {
+  color: var(--text-3);
+}
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3.5px rgba(0, 125, 250, 0.25);
+}
+.input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+.label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 590;
+  color: var(--text);
+  margin-bottom: 0.32rem;
+}
+.field-error {
+  margin-top: 0.28rem;
+  font-size: 0.72rem;
+  color: var(--danger);
+}
+
+/* ---------- Sidebar nav (macOS style) ---------- */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.1rem;
+  padding: 0 0.6rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 480;
+  color: var(--text);
+  transition: background-color var(--dur-1) var(--ease);
+}
+.nav-item:hover {
+  background: var(--fill);
+}
+.nav-item[data-active='true'] {
+  background: var(--accent-tint);
+  color: var(--accent);
+  font-weight: 590;
+}
+
+/* ---------- Chat bubbles (iOS) ---------- */
+.bubble-own {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: 18px 18px 4px 18px;
+}
+.bubble-other {
+  background: var(--fill);
+  color: var(--text);
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* ---------- Skeleton ---------- */
+.skeleton {
+  border-radius: 8px;
+  background: var(--fill);
+  animation: pulse 1.6s var(--ease) infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+/* ---------- Radix pop ---------- */
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.97) translateY(4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+[data-state='open'].anim-pop {
+  animation: pop-in 0.18s var(--ease);
+}
+
+/* ---------- Scrollbar ---------- */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline-strong) transparent;
+}
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--hairline-strong);
+  border-radius: 8px;
+}
+
+/* ---------- kbd ---------- */
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.06rem 0.34rem;
+  border-radius: 5px;
+  background: var(--fill);
+  font-size: 0.68rem;
+  font-weight: 590;
+  color: var(--text-2);
+  font-family: inherit;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
