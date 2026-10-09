@@ -1,32 +1,67 @@
 /* ============================================================
-   Liquid Glass material (Documentation §6.3 / §17)
-   Accent material for navigation, floating controls, overlays.
+   Liquid Glass material v2 — top-lit gradient borders,
+   specular highlights, premium depth (§6 + §17.5)
    ============================================================ */
 
 .liquid-glass {
+  position: relative;
   background: var(--glass-bg);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid var(--glass-border);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.24),
-    var(--glass-shadow);
   border-radius: 20px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 -1px 0 rgba(0, 0, 0, 0.04),
+    var(--glass-shadow);
 }
 
 /* Stronger variant for popovers, modals, command palette */
 .glass-strong {
   background: var(--glass-bg);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  backdrop-filter: blur(36px) saturate(180%);
+  -webkit-backdrop-filter: blur(36px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 24px 70px rgba(10, 16, 32, 0.22);
   border-radius: 20px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    0 24px 80px rgba(10, 16, 32, 0.28);
 }
 
-/* Reduced-transparency fallback (§7 — opaque surfaces) */
+/* Brand gradient tile (sidebar logo, feature icons) */
+.brand-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.40),
+    0 8px 22px color-mix(in srgb, var(--accent) 42%, transparent);
+}
+.brand-tile img {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+/* Icon chip with soft tinted glow */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 16%, transparent);
+}
+.chip-accent  { background: color-mix(in srgb, var(--accent) 14%, transparent);  color: var(--accent);  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent), 0 6px 18px color-mix(in srgb, var(--accent) 14%, transparent); }
+.chip-success { background: color-mix(in srgb, var(--success) 13%, transparent); color: var(--success); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--success) 22%, transparent), 0 6px 18px color-mix(in srgb, var(--success) 12%, transparent); }
+.chip-warning { background: color-mix(in srgb, var(--warning) 14%, transparent); color: var(--warning); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--warning) 24%, transparent), 0 6px 18px color-mix(in srgb, var(--warning) 12%, transparent); }
+.chip-danger  { background: color-mix(in srgb, var(--danger) 13%, transparent);  color: var(--danger);  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--danger) 22%, transparent), 0 6px 18px color-mix(in srgb, var(--danger) 12%, transparent); }
+.chip-info    { background: color-mix(in srgb, var(--info) 13%, transparent);    color: var(--info);    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--info) 22%, transparent), 0 6px 18px color-mix(in srgb, var(--info) 12%, transparent); }
+
+/* Reduced-transparency fallback (§7) */
 @media (prefers-reduced-transparency: reduce) {
   .liquid-glass {
     background: #ffffff;

@@ -17,8 +17,8 @@
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   --color-info: var(--info);
-  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI',
-    Roboto, 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
   --radius-glass: 20px;
 }
 
@@ -32,9 +32,11 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     text-rendering: optimizeLegibility;
+    font-feature-settings: 'cv11', 'ss01';
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
   ::selection {
-    background: color-mix(in srgb, var(--accent) 25%, transparent);
+    background: color-mix(in srgb, var(--accent) 28%, transparent);
   }
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -46,43 +48,74 @@
   }
 }
 
-/* ---------- Ambient mesh background (subtle, content-first) ---------- */
+/* ============================================================
+   Aurora ambient background — layered mesh + film-grain noise
+   ============================================================ */
 .mesh {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(640px 420px at 10% -6%, var(--blob-1), transparent 62%),
-    radial-gradient(720px 520px at 98% 6%, var(--blob-2), transparent 62%),
-    radial-gradient(860px 620px at 50% 112%, var(--blob-3), transparent 62%),
+    radial-gradient(900px 600px at 8% -10%, var(--blob-1), transparent 60%),
+    radial-gradient(800px 560px at 100% 0%, var(--blob-2), transparent 58%),
+    radial-gradient(1000px 720px at 50% 115%, var(--blob-3), transparent 60%),
+    radial-gradient(560px 420px at 82% 78%, var(--blob-1), transparent 62%),
     var(--bg);
+  animation: aurora-drift 26s ease-in-out infinite alternate;
+}
+.mesh::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+@keyframes aurora-drift {
+  from { background-position: 0% 0%, 100% 0%, 50% 100%, 82% 78%, 0 0; }
+  to   { background-position: 4% 3%, 94% 4%, 46% 94%, 78% 72%, 0 0; }
 }
 
-/* ---------- Solid card (dense content — §19 readability) ---------- */
-.card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: 0 1px 2px rgba(10, 16, 32, 0.04);
+/* ============================================================
+   Gradient text (hero numbers, accents)
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-.card-hover {
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+
+/* ============================================================
+   Cards — soft gradient surface, hover lift + accent glow (§19)
+   ============================================================ */
+.card {
+  background: linear-gradient(180deg, var(--card) 0%, var(--card-2) 100%);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(10, 16, 32, 0.05), 0 8px 28px rgba(10, 16, 32, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
+    background-color 0.35s ease;
 }
 .card-hover:hover {
-  transform: translateY(-2px);
-  border-color: var(--line-strong);
-  box-shadow: 0 10px 30px rgba(10, 16, 32, 0.09);
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+  box-shadow:
+    0 4px 10px rgba(10, 16, 32, 0.06),
+    0 18px 44px color-mix(in srgb, var(--accent) 16%, rgba(10, 16, 32, 0.10));
 }
 
-/* ---------- Buttons ---------- */
+/* ============================================================
+   Buttons — gradient primary with glow
+   ============================================================ */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   height: 2.5rem;
-  padding: 0 1rem;
+  padding: 0 1.05rem;
   border-radius: 12px;
   font-size: 0.875rem;
   font-weight: 600;
@@ -90,8 +123,8 @@
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease,
-    box-shadow 0.15s ease, transform 0.1s ease;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease, transform 0.12s ease, filter 0.18s ease;
 }
 .btn:active {
   transform: scale(0.98);
@@ -114,16 +147,27 @@
   width: 2rem;
 }
 .btn-primary {
-  background: var(--accent);
-  color: var(--accent-contrast);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 8px 22px color-mix(in srgb, var(--accent) 38%, transparent);
 }
 .btn-primary:hover {
-  background: var(--accent-strong);
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 28px color-mix(in srgb, var(--accent) 46%, transparent);
+}
+[data-theme='dark'] .btn-primary {
+  color: #171233;
 }
 .btn-secondary {
   background: var(--card);
   border: 1px solid var(--line-strong);
   color: var(--text);
+  box-shadow: 0 1px 2px rgba(10, 16, 32, 0.05);
 }
 .btn-secondary:hover {
   border-color: var(--accent);
@@ -161,14 +205,16 @@
   background: color-mix(in srgb, var(--success) 24%, transparent);
 }
 
-/* ---------- Badges ---------- */
+/* ============================================================
+   Badges — pill with tinted ring
+   ============================================================ */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.14rem 0.55rem;
+  padding: 0.16rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: 0.71rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   border: 1px solid transparent;
@@ -177,35 +223,37 @@
 .badge-accent {
   background: color-mix(in srgb, var(--accent) 13%, transparent);
   color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 24%, transparent);
 }
 .badge-success {
   background: color-mix(in srgb, var(--success) 13%, transparent);
   color: var(--success);
-  border-color: color-mix(in srgb, var(--success) 24%, transparent);
+  border-color: color-mix(in srgb, var(--success) 26%, transparent);
 }
 .badge-warning {
   background: color-mix(in srgb, var(--warning) 14%, transparent);
   color: var(--warning);
-  border-color: color-mix(in srgb, var(--warning) 26%, transparent);
+  border-color: color-mix(in srgb, var(--warning) 28%, transparent);
 }
 .badge-danger {
   background: color-mix(in srgb, var(--danger) 12%, transparent);
   color: var(--danger);
-  border-color: color-mix(in srgb, var(--danger) 24%, transparent);
+  border-color: color-mix(in srgb, var(--danger) 26%, transparent);
 }
 .badge-info {
   background: color-mix(in srgb, var(--info) 13%, transparent);
   color: var(--info);
-  border-color: color-mix(in srgb, var(--info) 24%, transparent);
+  border-color: color-mix(in srgb, var(--info) 26%, transparent);
 }
 .badge-neutral {
   background: color-mix(in srgb, var(--text-2) 12%, transparent);
   color: var(--text-2);
-  border-color: color-mix(in srgb, var(--text-2) 22%, transparent);
+  border-color: color-mix(in srgb, var(--text-2) 24%, transparent);
 }
 
-/* ---------- Form controls ---------- */
+/* ============================================================
+   Form controls
+   ============================================================ */
 .input {
   width: 100%;
   height: 2.5rem;
@@ -215,7 +263,7 @@
   background: var(--card-2);
   color: var(--text);
   font-size: 0.875rem;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.35s ease;
 }
 textarea.input {
   height: auto;
@@ -229,7 +277,7 @@ textarea.input {
 .input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 .input[aria-invalid='true'] {
   border-color: var(--danger);
@@ -247,12 +295,15 @@ textarea.input {
   color: var(--danger);
 }
 
-/* ---------- Nav ---------- */
+/* ============================================================
+   Sidebar nav — glowing active indicator
+   ============================================================ */
 .nav-item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.55rem 0.8rem;
   border-radius: 12px;
   font-size: 0.875rem;
   font-weight: 500;
@@ -264,16 +315,33 @@ textarea.input {
   background: color-mix(in srgb, var(--text) 6%, transparent);
 }
 .nav-item[data-active='true'] {
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 16%, transparent), color-mix(in srgb, var(--accent) 6%, transparent));
   color: var(--accent);
   font-weight: 600;
 }
+.nav-item[data-active='true']::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 58%;
+  border-radius: 4px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+}
 
-/* ---------- Chat bubbles ---------- */
+/* ============================================================
+   Chat bubbles
+   ============================================================ */
 .bubble-own {
-  background: var(--accent);
-  color: var(--accent-contrast);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
   border-radius: 18px 18px 4px 18px;
+}
+[data-theme='dark'] .bubble-own {
+  color: #171233;
 }
 .bubble-other {
   background: var(--card);
@@ -281,7 +349,9 @@ textarea.input {
   border-radius: 18px 18px 18px 4px;
 }
 
-/* ---------- Skeleton ---------- */
+/* ============================================================
+   Skeleton
+   ============================================================ */
 .skeleton {
   border-radius: 10px;
   background: linear-gradient(
@@ -299,7 +369,9 @@ textarea.input {
   }
 }
 
-/* ---------- Radix pop animations ---------- */
+/* ============================================================
+   Radix pop animations
+   ============================================================ */
 @keyframes pop-in {
   from {
     opacity: 0;
@@ -314,7 +386,22 @@ textarea.input {
   animation: pop-in 0.16s ease-out;
 }
 
-/* ---------- Scrollbar ---------- */
+/* ============================================================
+   Chart pulse (last data point)
+   ============================================================ */
+.chart-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: chart-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes chart-ping {
+  0% { transform: scale(1); opacity: 0.65; }
+  75%, 100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* ============================================================
+   Scrollbar
+   ============================================================ */
 .scroll-thin {
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--text-2) 35%, transparent) transparent;
@@ -328,13 +415,16 @@ textarea.input {
   border-radius: 8px;
 }
 
-/* ---------- kbd ---------- */
+/* ============================================================
+   kbd
+   ============================================================ */
 .kbd {
   display: inline-flex;
   align-items: center;
-  padding: 0.1rem 0.4rem;
+  padding: 0.12rem 0.42rem;
   border-radius: 6px;
   border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
   background: var(--card-2);
   font-size: 0.7rem;
   font-weight: 600;
@@ -342,7 +432,9 @@ textarea.input {
   font-family: inherit;
 }
 
-/* ---------- Reduced motion (§7) ---------- */
+/* ============================================================
+   Reduced motion (§7)
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

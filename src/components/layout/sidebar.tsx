@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { Sparkles } from 'lucide-react'
 import { navItems } from './nav-config'
 import { Avatar } from '../ui/avatar'
 import { userById, CURRENT_USER_ID } from '../../mocks/users'
@@ -10,13 +11,19 @@ function SidebarContent() {
   return (
     <div className="flex h-full flex-col">
       {/* Brand */}
-      <div className="flex items-center gap-2.5 px-3 pt-1 pb-5">
-        <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="h-8 w-8 rounded-lg" />
+      <div className="flex items-center gap-3 px-2 pt-1 pb-6">
+        <span className="brand-tile">
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="h-5 w-5" />
+        </span>
         <div className="min-w-0">
-          <p className="truncate text-sm font-bold leading-tight">WorkRelay</p>
+          <p className="truncate text-sm font-bold tracking-tight">WorkRelay</p>
           <p className="truncate text-[11px] text-muted">Qevora Studio</p>
         </div>
       </div>
+
+      <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-muted">
+        Workspace
+      </p>
 
       {/* Nav */}
       <nav className="flex-1 space-y-1" aria-label="Main navigation">
@@ -42,14 +49,25 @@ function SidebarContent() {
         )}
       </nav>
 
+      {/* Pilot card */}
+      <div className="mx-1 mb-2 rounded-2xl border border-line bg-gradient-to-br from-[color-mix(in_srgb,var(--accent)_14%,transparent)] to-transparent p-3">
+        <p className="flex items-center gap-1.5 text-xs font-bold">
+          <Sparkles size={13} className="text-[var(--accent)]" />
+          Pilot v0.1
+        </p>
+        <p className="mt-1 text-[11px] leading-snug text-muted">
+          Validation phase — your feedback shapes the roadmap.
+        </p>
+      </div>
+
       {/* User */}
-      <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-line bg-card2/70 p-2.5">
+      <div className="flex items-center gap-2.5 rounded-2xl border border-line bg-card2/70 p-2.5">
         <Avatar user={me} size="sm" />
         <div className="min-w-0 flex-1">
           <p className="truncate text-xs font-semibold">{me.name}</p>
           <p className="truncate text-[10px] text-muted">{me.role}</p>
         </div>
-        <span className="h-2 w-2 rounded-full bg-[var(--success)]" aria-label="Online" />
+        <span className="h-2 w-2 rounded-full bg-[var(--success)] shadow-[0_0_8px_var(--success)]" aria-label="Online" />
       </div>
     </div>
   )
