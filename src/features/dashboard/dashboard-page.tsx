@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { motion, useReducedMotion } from 'motion/react'
 import {
   ArrowRight, ArrowUpRight, CheckCircle2, FolderKanban, Inbox, MessageSquare,
   Clock, Plus, Globe,
@@ -21,6 +22,20 @@ import { clientById } from '../../mocks/projects'
 import { relativeTime } from '../../lib/utils'
 import type { ActivityItem } from '../../types'
 
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.05, delayChildren: 0.04 } },
+}
+
+const rise = {
+  hidden: { opacity: 0, y: 14 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] as const },
+  },
+}
+
 const deliveryPulse = [
   { label: '24 Aug', value: 3 },
   { label: '31 Aug', value: 5 },
@@ -34,6 +49,7 @@ const deliveryPulse = [
 
 export function DashboardPage() {
   const navigate = useNavigate()
+  const reduce = useReducedMotion()
   const { loaded, markLoaded, projects, requests, approvals, activity } = useWorkspaceStore()
   const conversations = useChatStore((s) => s.conversations)
   const [activityFilter, setActivityFilter] = useState('all')
@@ -62,12 +78,11 @@ export function DashboardPage() {
 
   return (
     <PageTransition>
+      <motion.div variants={reduce ? undefined : stagger} initial={reduce ? undefined : 'hidden'} animate={reduce ? undefined : 'show'}>
       {/* Hero */}
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight sm:text-[1.7rem]">
-            Good morning, <span className="gradient-text">Aarav</span> 👋
-          </h1>
+          <h1 className="text-2xl font-extrabold tracking-tight sm:text-[1.7rem]">Good morning, Aarav 👋</h1>
           <p className="mt-1 text-sm text-muted">Here's what needs your attention today.</p>
         </div>
         <div className="flex items-center gap-2">
@@ -83,7 +98,7 @@ export function DashboardPage() {
       {/* Stat cards */}
       <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
         {stats.map((s) => (
-          <button key={s.label} onClick={() => navigate(s.to)} className="card card-hover p-5 text-left">
+          <motion.button variants={reduce ? undefined : rise} key={s.label} onClick={() => navigate(s.to)} className="card card-hover p-5 text-left">
             <div className="flex items-start justify-between">
               <span className={`chip chip-${s.tone}`}>
                 <s.icon size={19} />
@@ -97,12 +112,13 @@ export function DashboardPage() {
               {loaded ? s.value : '–'}
             </p>
             <p className="mt-0.5 text-xs font-medium text-muted">{s.label}</p>
-          </button>
+          </motion.button>
         ))}
       </div>
 
       {/* Delivery pulse + blockers */}
       <div className="mt-5 grid gap-4 xl:grid-cols-3">
+        <motion.div variants={reduce ? undefined : rise} className="contents">
         <Card className="xl:col-span-2">
           <CardHeader
             title="Delivery pulse"
@@ -146,10 +162,12 @@ export function DashboardPage() {
             )}
           </div>
         </Card>
+        </motion.div>
       </div>
 
       {/* Projects + activity */}
       <div className="mt-5 grid gap-4 xl:grid-cols-3 2xl:grid-cols-4">
+        <motion.div variants={reduce ? undefined : rise} className="md:col-span-2 xl:col-span-2 2xl:col-span-3 contents">
         <Card className="xl:col-span-2 2xl:col-span-3">
           <CardHeader
             title="Projects"
@@ -194,7 +212,9 @@ export function DashboardPage() {
             </div>
           )}
         </Card>
+        </motion.div>
 
+        <motion.div variants={reduce ? undefined : rise} className="contents">
         <Card>
           <CardHeader title="Recent activity" />
           <div className="px-4 pb-4">
@@ -226,7 +246,9 @@ export function DashboardPage() {
             </div>
           </div>
         </Card>
+        </motion.div>
       </div>
+      </motion.div>
     </PageTransition>
   )
 }

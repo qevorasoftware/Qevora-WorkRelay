@@ -1,5 +1,6 @@
 /* ============================================================
-   Qevora WorkRelay — Design tokens v2 (Documentation §6 + §19)
+   Qevora WorkRelay — Design tokens v3 (Documentation §6 + §19)
+   Apple-inspired: vivid ambient light behind TRUE glass.
    ============================================================ */
 
 :root {
@@ -12,14 +13,16 @@
   --accent-strong: #5247C7;
   --accent-contrast: #FFFFFF;
 
-  /* Glass surfaces */
-  --glass-bg: rgba(255, 255, 255, 0.60);
-  --glass-border: rgba(255, 255, 255, 0.70);
-  --glass-shadow: 0 12px 40px rgba(15, 23, 42, 0.10);
+  /* Liquid Glass — tinted, translucent, alive */
+  --glass-bg: rgba(255, 255, 255, 0.52);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-specular: rgba(255, 255, 255, 0.95);
+  --glass-inner: rgba(255, 255, 255, 0.28);
+  --glass-shadow: 0 16px 56px rgba(15, 23, 42, 0.12);
 
-  /* Solid surfaces (dense content stays readable — §19) */
-  --card: #FFFFFF;
-  --card-2: #F7F9FD;
+  /* Solid surfaces — dense content stays readable (§19) */
+  --card: rgba(255, 255, 255, 0.88);
+  --card-2: rgba(247, 249, 253, 0.92);
   --line: rgba(23, 32, 51, 0.09);
   --line-strong: rgba(23, 32, 51, 0.16);
 
@@ -29,17 +32,26 @@
   --danger: #B91C1C;
   --info: #2563EB;
 
-  /* Aurora background blobs */
-  --blob-1: rgba(101, 88, 211, 0.20);
-  --blob-2: rgba(45, 212, 191, 0.14);
-  --blob-3: rgba(236, 72, 153, 0.10);
-  --noise-opacity: 0.035;
+  /* Aurora — the light the glass refracts (visible!) */
+  --blob-1: rgba(101, 88, 211, 0.34);
+  --blob-2: rgba(45, 212, 191, 0.26);
+  --blob-3: rgba(244, 114, 182, 0.20);
+  --blob-4: rgba(56, 130, 246, 0.22);
+  --noise-opacity: 0.03;
+
+  /* Motion system — Premium personality (motion-design skill):
+     signature easing + 3-step duration palette, 0% overshoot */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --dur-quick: 150ms;
+  --dur-standard: 250ms;
+  --dur-slow: 400ms;
 
   color-scheme: light;
 }
 
 [data-theme='dark'] {
-  --bg: #0A1020;
+  --bg: #070B16;
   --text: #F5F7FF;
   --text-2: #A5B2CA;
   --accent: #A99BFF;
@@ -47,12 +59,15 @@
   --accent-strong: #BFB4FF;
   --accent-contrast: #171233;
 
-  --glass-bg: rgba(24, 34, 56, 0.64);
+  /* Key change: far more transparent than before — real show-through */
+  --glass-bg: rgba(22, 30, 54, 0.42);
   --glass-border: rgba(255, 255, 255, 0.14);
-  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
+  --glass-specular: rgba(255, 255, 255, 0.38);
+  --glass-inner: rgba(160, 170, 255, 0.06);
+  --glass-shadow: 0 20px 64px rgba(0, 0, 0, 0.42);
 
-  --card: #131C31;
-  --card-2: #0F1830;
+  --card: rgba(17, 25, 45, 0.86);
+  --card-2: rgba(13, 20, 38, 0.9);
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
 
@@ -61,10 +76,12 @@
   --danger: #FDA4AF;
   --info: #7DD3FC;
 
-  --blob-1: rgba(124, 108, 247, 0.22);
-  --blob-2: rgba(45, 212, 191, 0.11);
-  --blob-3: rgba(244, 114, 182, 0.08);
-  --noise-opacity: 0.05;
+  /* Vivid aurora — glass needs living color to refract */
+  --blob-1: rgba(101, 88, 211, 0.5);
+  --blob-2: rgba(45, 212, 191, 0.28);
+  --blob-3: rgba(244, 114, 182, 0.24);
+  --blob-4: rgba(56, 130, 246, 0.34);
+  --noise-opacity: 0.045;
 
   color-scheme: dark;
 }

@@ -74,9 +74,6 @@ export function AreaChart({ data, height = 190, ariaLabel }: {
 
       {pts.map(([px, py], i) => (
         <g key={i}>
-          {i === pts.length - 1 && (
-            <circle className="chart-pulse" cx={px} cy={py} r="6" fill="var(--accent)" />
-          )}
           <circle
             cx={px}
             cy={py}

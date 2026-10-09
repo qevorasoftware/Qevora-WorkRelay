@@ -57,12 +57,12 @@
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(900px 600px at 8% -10%, var(--blob-1), transparent 60%),
-    radial-gradient(800px 560px at 100% 0%, var(--blob-2), transparent 58%),
-    radial-gradient(1000px 720px at 50% 115%, var(--blob-3), transparent 60%),
-    radial-gradient(560px 420px at 82% 78%, var(--blob-1), transparent 62%),
+    radial-gradient(1100px 760px at 12% -14%, var(--blob-1), transparent 62%),
+    radial-gradient(900px 640px at 102% -4%, var(--blob-4), transparent 60%),
+    radial-gradient(1000px 700px at -6% 68%, var(--blob-2), transparent 58%),
+    radial-gradient(960px 660px at 78% 118%, var(--blob-3), transparent 62%),
     var(--bg);
-  animation: aurora-drift 26s ease-in-out infinite alternate;
+  animation: aurora-drift 32s ease-in-out infinite alternate;
 }
 .mesh::after {
   content: '';
@@ -73,8 +73,8 @@
   mix-blend-mode: overlay;
 }
 @keyframes aurora-drift {
-  from { background-position: 0% 0%, 100% 0%, 50% 100%, 82% 78%, 0 0; }
-  to   { background-position: 4% 3%, 94% 4%, 46% 94%, 78% 72%, 0 0; }
+  from { background-position: 0% 0%, 100% 0%, 0% 68%, 78% 118%, 0 0; }
+  to   { background-position: 5% 4%, 94% 3%, 6% 62%, 72% 108%, 0 0; }
 }
 
 /* ============================================================
@@ -93,10 +93,13 @@
 .card {
   background: linear-gradient(180deg, var(--card) 0%, var(--card-2) 100%);
   border: 1px solid var(--line);
-  border-radius: 20px;
-  box-shadow: 0 1px 2px rgba(10, 16, 32, 0.05), 0 8px 28px rgba(10, 16, 32, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
-    background-color 0.35s ease;
+  border-radius: 22px;
+  box-shadow: 0 1px 2px rgba(10, 16, 32, 0.05), 0 10px 32px rgba(10, 16, 32, 0.05);
+  transition:
+    transform var(--dur-standard) var(--ease-standard),
+    box-shadow var(--dur-standard) var(--ease-standard),
+    border-color var(--dur-standard) var(--ease-standard),
+    background-color var(--dur-slow) var(--ease-standard);
 }
 .card-hover:hover {
   transform: translateY(-3px);
@@ -123,11 +126,17 @@
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease,
-    box-shadow 0.18s ease, transform 0.12s ease, filter 0.18s ease;
+  transition:
+    background var(--dur-quick) var(--ease-standard),
+    color var(--dur-quick) var(--ease-standard),
+    border-color var(--dur-quick) var(--ease-standard),
+    box-shadow var(--dur-quick) var(--ease-standard),
+    transform var(--dur-quick) var(--ease-standard),
+    filter var(--dur-quick) var(--ease-standard);
+  touch-action: manipulation;
 }
 .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 .btn:disabled {
   opacity: 0.55;
@@ -430,6 +439,16 @@ textarea.input {
   font-weight: 600;
   color: var(--text-2);
   font-family: inherit;
+}
+
+/* ============================================================
+   Theme switch — no cross-fade of every property at once
+   (ui-animation skill: disable transitions during the flip)
+   ============================================================ */
+[data-theme-switching] *,
+[data-theme-switching] *::before,
+[data-theme-switching] *::after {
+  transition: none !important;
 }
 
 /* ============================================================

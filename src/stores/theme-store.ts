@@ -37,8 +37,16 @@ export function resolveTheme(mode: ThemeMode): 'light' | 'dark' {
 export function bindThemeToDocument() {
   const apply = () => {
     const { mode, density } = useThemeStore.getState()
-    document.documentElement.dataset.theme = resolveTheme(mode)
-    document.documentElement.dataset.density = density
+    const root = document.documentElement
+    const next = resolveTheme(mode)
+    if (root.dataset.theme !== next) {
+      root.dataset.themeSwitching = ''
+      root.dataset.theme = next
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => delete root.dataset.themeSwitching)
+      })
+    }
+    root.dataset.density = density
   }
   apply()
   const mq = window.matchMedia('(prefers-color-scheme: dark)')
