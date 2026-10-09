@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { ShieldCheck, CheckCircle2, Zap, Users, Sun, Moon, Monitor, Star, FolderKanban } from 'lucide-react'
 import { Segmented } from '../../components/ui/segmented'
+import { Badge } from '../../components/ui/badge'
 import { useThemeStore } from '../../stores/theme-store'
 
 /** Split-screen auth layout — Liquid Glass showroom: vivid mesh, product
@@ -74,7 +75,7 @@ export function AuthLayout({ title, subtitle, children, footer }: {
                 <div className="floaty glass-card min-w-0 flex-1 p-4" style={{ '--rot': '-1.5deg', animationDelay: '0.6s' } as CSSProperties}>
                   <div className="flex items-center justify-between gap-2">
                     <p className="truncate text-[12.5px] font-semibold">Homepage redesign — v4</p>
-                    <span className="badge-success shrink-0"><CheckCircle2 size={11} /> Approved</span>
+                    <Badge tone="success" className="shrink-0"><CheckCircle2 size={11} /> Approved</Badge>
                   </div>
                   <p className="mt-0.5 text-[11px] text-muted">Client sign-off · 2 min ago</p>
                   <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[var(--fill)]">

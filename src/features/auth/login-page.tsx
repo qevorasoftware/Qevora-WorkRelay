@@ -108,7 +108,7 @@ export function LoginPage() {
       {/* Demo credentials — front and centre so anyone can sign in */}
       <div className="glass-card rounded-2xl p-3.5">
         <div className="mb-2.5 flex items-center gap-2">
-          <span className="badge-accent flex h-6 w-6 shrink-0 items-center justify-center !border-0"><Zap size={12} /></span>
+          <span className="badge badge-accent h-6 w-6 shrink-0 items-center justify-center !p-0"><Zap size={12} /></span>
           <p className="text-[12.5px] font-semibold">Try the full workspace — no signup</p>
         </div>
         <div className="grid gap-2 sm:grid-cols-2">

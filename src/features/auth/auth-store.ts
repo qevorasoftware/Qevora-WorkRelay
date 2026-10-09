@@ -204,7 +204,7 @@ export const useAuthStore = create<AuthState>()(
         }
         if (user.twoFactorEnabled) {
           set({
-            twoFaChallenge: { userId: user.id, otp: genOtp(), expiresAt: Date.now() + OTP_TTL },
+            twoFaChallenge: { userId: user.id, otp: demoAuthenticatorCode(user) ?? genOtp(), expiresAt: Date.now() + OTP_TTL },
           })
           return '2fa'
         }
@@ -257,7 +257,7 @@ export const useAuthStore = create<AuthState>()(
         if (!me || me.twoFactorEnabled) return null
         const secret = genSecret()
         const backupCodes = genBackupCodes()
-        set({ users: s.users.map((u) => (u.id === me.id ? { ...u, twoFactorSecret: secret } : u)) })
+        set({ users: s.users.map((u) => (u.id === me.id ? { ...u, twoFactorSecret: secret, backupCodes } : u)) })
         return { secret, backupCodes }
       },
 

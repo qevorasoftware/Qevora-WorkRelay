@@ -128,7 +128,7 @@ export function AdminPage() {
             <Card className="px-5 py-4">
               <div className="flex items-center justify-between">
                 <p className="text-[12.5px] text-muted">{s.label}</p>
-                <s.icon size={15} className={`badge-${s.tone} !border-0`} />
+                <span className={`badge badge-${s.tone} h-7 w-7 items-center justify-center !rounded-lg !p-0`}><s.icon size={13} /></span>
               </div>
               <p className="mt-1 text-[26px] font-semibold tabular-nums tracking-tight">{s.value}</p>
             </Card>
