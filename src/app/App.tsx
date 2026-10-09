@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
+import { HashRouter, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'motion/react'
 import { Providers } from './providers'
 import { ErrorBoundary } from '../components/feedback/error-boundary'
@@ -24,7 +24,7 @@ function NotFound() {
       <Card className="w-full max-w-md">
         <EmptyState title="Page not found" hint="The link may be wrong, or the page moved." />
         <div className="flex justify-center pb-6">
-          <a href="/" className="btn btn-primary">Go home</a>
+          <a href="#/" className="btn btn-primary">Go home</a>
         </div>
       </Card>
     </div>
@@ -60,9 +60,9 @@ export default function App() {
   return (
     <ErrorBoundary>
       <Providers>
-        <BrowserRouter>
+        <HashRouter>
           <AnimatedRoutes />
-        </BrowserRouter>
+        </HashRouter>
       </Providers>
     </ErrorBoundary>
   )

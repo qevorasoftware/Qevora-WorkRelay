@@ -11,7 +11,7 @@ function SidebarContent() {
     <div className="flex h-full flex-col">
       {/* Brand */}
       <div className="flex items-center gap-2.5 px-3 pt-1 pb-5">
-        <img src="/favicon.svg" alt="" className="h-8 w-8 rounded-lg" />
+        <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="h-8 w-8 rounded-lg" />
         <div className="min-w-0">
           <p className="truncate text-sm font-bold leading-tight">WorkRelay</p>
           <p className="truncate text-[11px] text-muted">Qevora Studio</p>
