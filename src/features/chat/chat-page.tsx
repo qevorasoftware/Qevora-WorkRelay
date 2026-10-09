@@ -186,8 +186,8 @@ export function ChatPage() {
   const typingUser = active?.id === 'cv2' ? userById('u5') : undefined
 
   return (
-    <PageTransition>
-      <Card className="flex h-[calc(100vh-9rem)] min-h-[460px] overflow-hidden">
+    <PageTransition fill>
+      <Card className="flex min-h-0 flex-1 overflow-hidden">
         {/* Conversation list */}
         <div className={cn('flex w-full flex-col border-r border-line sm:w-[260px] sm:shrink-0', showListOnMobile ? 'flex' : 'hidden sm:flex')}>
           <div className="border-b border-line p-2.5">

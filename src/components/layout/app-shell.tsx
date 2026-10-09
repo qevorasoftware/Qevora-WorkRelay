@@ -12,17 +12,15 @@ export function AppShell() {
   const setMobileNavOpen = useUiStore((s) => s.setMobileNavOpen)
 
   return (
-    <div className="ambient min-h-screen">
-      <div className="flex w-full">
-        <Sidebar />
-        <SidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
-        <div className="min-w-0 flex-1">
-          <Topbar />
-          {/* Full width on every page — content spans edge to edge */}
-          <main className="w-full px-4 pb-14 pt-[72px] sm:px-6 lg:px-8">
-            <Outlet />
-          </main>
-        </div>
+    <div className="ambient flex h-dvh w-full overflow-hidden">
+      <Sidebar />
+      <SidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
+      <div className="flex min-w-0 flex-1 flex-col">
+        <Topbar />
+        {/* Pages scroll INSIDE this region — the window itself never scrolls */}
+        <main className="scroll-thin flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-8 pt-5 sm:px-6 lg:px-8">
+          <Outlet />
+        </main>
       </div>
       <CommandPalette />
       <Toaster />

@@ -54,7 +54,7 @@ function SidebarContent() {
 
 export function Sidebar() {
   return (
-    <aside className="liquid-glass sticky top-3 ml-3 hidden h-[calc(100vh-1.5rem)] w-[224px] shrink-0 flex-col rounded-[24px] px-3 pb-4 pt-5 lg:flex">
+    <aside className="liquid-glass my-3 ml-3 hidden w-[224px] shrink-0 flex-col rounded-[24px] px-3 pb-4 pt-5 lg:flex">
       <SidebarContent />
     </aside>
   )

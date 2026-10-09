@@ -21,6 +21,14 @@
 }
 
 @layer base {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden; /* app-frame: only inner regions scroll */
+  }
+  #root {
+    height: 100%;
+  }
   html {
     scrollbar-gutter: stable;
   }

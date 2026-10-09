@@ -54,12 +54,12 @@ export function PortalPage() {
 
   if (!client) {
     return (
-      <div className="ambient min-h-screen">
-        <header className="liquid-glass sticky top-3 z-30 mx-4 flex h-[52px] items-center gap-3 rounded-2xl px-4 lg:mx-6">
+      <div className="ambient flex h-dvh flex-col overflow-hidden">
+        <header className="liquid-glass z-30 mx-4 mt-3 flex h-[54px] shrink-0 items-center gap-3 rounded-full px-4 lg:mx-6">
           <ShieldCheck size={17} className="text-[var(--success)]" />
           <p className="text-[13.5px] font-semibold">Client workspace</p>
         </header>
-        <main className="mx-auto w-full max-w-5xl px-4 pb-14 pt-[72px] sm:px-6 lg:px-8">
+        <main className="scroll-thin mx-auto w-full max-w-5xl flex-1 overflow-y-auto px-4 pb-10 pt-6 sm:px-6 lg:px-8">
           <div className="mb-4 flex items-center justify-between">
             <h1 className="text-[22px] font-semibold tracking-tight">Choose a workspace</h1>
             <Link to="/" className="btn btn-ghost btn-sm"><ArrowLeft size={13} /> Back to app</Link>
@@ -110,8 +110,8 @@ export function PortalPage() {
   const activeChat = visibleChats[0]
 
   return (
-    <div className="ambient min-h-screen">
-      <header className="liquid-glass sticky top-3 z-30 mx-4 flex h-[52px] items-center gap-3 rounded-2xl px-4 lg:mx-6">
+    <div className="ambient flex h-dvh flex-col overflow-hidden">
+      <header className="liquid-glass z-30 mx-4 mt-3 flex h-[54px] shrink-0 items-center gap-3 rounded-full px-4 lg:mx-6">
         <ShieldCheck size={17} className="text-[var(--success)]" />
         <div className="min-w-0 flex-1">
           <p className="truncate text-[13.5px] font-semibold">{client.company}</p>
@@ -126,7 +126,7 @@ export function PortalPage() {
         </Button>
       </header>
 
-      <main className="w-full px-4 pb-14 pt-[72px] sm:px-6 lg:px-8">
+      <main className="scroll-thin w-full flex-1 overflow-y-auto px-4 pb-10 pt-6 sm:px-6 lg:px-8">
         <Card className="mb-4 p-5">
           <p className="text-[15px] font-semibold">{clientProjects[0]?.name ?? 'Project'}</p>
           <p className="mt-0.5 text-[12.5px] text-muted">{clientProjects[0]?.tagline}</p>
