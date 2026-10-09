@@ -45,8 +45,9 @@ function AppRoutes() {
         <Route path="/approvals" element={<ApprovalsPage />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/files" element={<FilesPage />} />
-        <Route path="/clients" element={<ClientsPage />} />
-        <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/clients" element={<ClientsPage />} />
+          <Route path="/activity" element={<ActivityPage />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Route>
       <Route path="*" element={<NotFound />} />
