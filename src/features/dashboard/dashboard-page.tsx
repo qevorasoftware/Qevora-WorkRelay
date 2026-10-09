@@ -195,7 +195,17 @@ export function DashboardPage() {
 
         {/* Activity */}
         <Card>
-          <CardHeader title="Recent activity" />
+          <CardHeader
+            title="Recent activity"
+            action={
+              <button
+                className="text-[12px] font-medium text-[var(--accent)] hover:underline"
+                onClick={() => navigate('/activity')}
+              >
+                View all
+              </button>
+            }
+          />
           <div className="px-4 pb-4">
             <Tabs
               value={activityFilter}

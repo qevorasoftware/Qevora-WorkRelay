@@ -1,6 +1,6 @@
 import {
-  CalendarDays, CheckCircle2, FolderKanban, Inbox, LayoutDashboard,
-  MessageSquare, Folder, Settings, Users,
+  Activity as ActivityIcon, CalendarDays, CheckCircle2, FolderKanban, Inbox,
+  LayoutDashboard, MessageSquare, Folder, Settings, Users,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -19,6 +19,7 @@ export const navItems: NavItem[] = [
   { to: '/chat', label: 'Chat', icon: MessageSquare },
   { to: '/files', label: 'Files', icon: Folder },
   { to: '/clients', label: 'Clients', icon: Users },
+  { to: '/activity', label: 'Activity', icon: ActivityIcon },
   { to: '/calendar', label: 'Calendar', icon: CalendarDays, phase2: true },
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
@@ -31,6 +32,7 @@ export const routeTitles: Record<string, string> = {
   '/chat': 'Chat',
   '/files': 'Files',
   '/clients': 'Clients',
+  '/activity': 'Activity',
   '/notifications': 'Notifications',
   '/settings': 'Settings',
 }

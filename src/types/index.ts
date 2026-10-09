@@ -128,6 +128,28 @@ export interface Notification {
   at: string
 }
 
+export interface ActivityChange {
+  field: string
+  from: string
+  to: string
+}
+
+export interface ActivityDetail {
+  entity: 'request' | 'approval' | 'file' | 'project' | 'conversation'
+  entityLabel: string
+  entityRef?: string
+  version?: string
+  projectName?: string
+  clientName?: string
+  changes: ActivityChange[]
+  comment?: string
+  device: string
+  browser: string
+  ip: string
+  location: string
+  sessionRef: string
+}
+
 export interface ActivityItem {
   id: ID
   actorId: ID
@@ -135,4 +157,5 @@ export interface ActivityItem {
   action: string
   target: string
   at: string
+  detail: ActivityDetail
 }
