@@ -149,8 +149,8 @@ export function DashboardPage() {
       </div>
 
       {/* Projects + activity */}
-      <div className="mt-5 grid gap-4 xl:grid-cols-3">
-        <Card className="xl:col-span-2">
+      <div className="mt-5 grid gap-4 xl:grid-cols-3 2xl:grid-cols-4">
+        <Card className="xl:col-span-2 2xl:col-span-3">
           <CardHeader
             title="Projects"
             action={
