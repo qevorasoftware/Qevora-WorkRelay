@@ -117,6 +117,8 @@ export function SelectDropdown({ value, onChange, options, placeholder, classNam
           aria-label={ariaLabel}
           data-state="open"
           className="select-menu anim-pop scroll-thin fixed z-[90] max-h-[300px] overflow-y-auto rounded-2xl p-1.5 outline-none"
+          onPointerDown={(e) => e.stopPropagation()}
+          onMouseDown={(e) => e.stopPropagation()}
           style={{
             left: pos.left,
             top: pos.top,
