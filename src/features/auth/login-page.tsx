@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Zap } from 'lucide-react'
 import { AuthLayout, AuthError } from './auth-layout'
 import { OtpInput, DemoAuthenticatorHint, DemoMailbox } from './otp-input'
 import { useAuthStore, demoAuthenticatorCode } from './auth-store'
@@ -100,23 +100,49 @@ export function LoginPage() {
 
       <div className="my-4 flex items-center gap-3">
         <span className="h-px flex-1 bg-[var(--hairline)]" />
-        <span className="text-[10.5px] font-semibold uppercase tracking-wide text-faint">or</span>
+        <span className="text-[10.5px] font-semibold uppercase tracking-wide text-faint">demo access</span>
         <span className="h-px flex-1 bg-[var(--hairline)]" />
       </div>
 
-      <Button
-        variant="secondary"
-        className="w-full"
-        onClick={() => {
-          const result = login('demo@qevora.studio', 'demo1234')
-          if (result === 'ok') navigate(dest, { replace: true })
-        }}
-      >
-        ⚡ Try the demo workspace
-      </Button>
-      <p className="mt-2.5 text-center text-[10.5px] leading-relaxed text-faint">
-        Demo account: demo@qevora.studio · demo1234 — no signup needed
-      </p>
+      {/* Demo credentials — front and centre so anyone can sign in */}
+      <div className="glass-card rounded-2xl p-3.5">
+        <div className="mb-2.5 flex items-center gap-2">
+          <span className="badge-accent flex h-6 w-6 shrink-0 items-center justify-center !border-0"><Zap size={12} /></span>
+          <p className="text-[12.5px] font-semibold">Try the full workspace — no signup</p>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <button
+            type="button"
+            aria-label="Fill demo email"
+            onClick={() => { setEmail('demo@qevora.studio'); setError(undefined) }}
+            className="rounded-xl border border-[var(--hairline)] bg-[var(--card)] px-3 py-2 text-left transition-all hover:-translate-y-px hover:border-[var(--accent)] hover:shadow-[0_6px_18px_-8px_rgba(0,0,0,0.25)]"
+          >
+            <p className="text-[9.5px] font-semibold uppercase tracking-wider text-faint">Email · tap to fill</p>
+            <p className="truncate text-[12.5px] font-medium">demo@qevora.studio</p>
+          </button>
+          <button
+            type="button"
+            aria-label="Fill demo password"
+            onClick={() => { setPassword('demo1234'); setError(undefined) }}
+            className="rounded-xl border border-[var(--hairline)] bg-[var(--card)] px-3 py-2 text-left transition-all hover:-translate-y-px hover:border-[var(--accent)] hover:shadow-[0_6px_18px_-8px_rgba(0,0,0,0.25)]"
+          >
+            <p className="text-[9.5px] font-semibold uppercase tracking-wider text-faint">Password · tap to fill</p>
+            <p className="truncate text-[12.5px] font-medium">demo1234</p>
+          </button>
+        </div>
+        <Button
+          variant="secondary"
+          className="mt-2.5 w-full"
+          onClick={() => {
+            setEmail('demo@qevora.studio')
+            setPassword('demo1234')
+            const result = login('demo@qevora.studio', 'demo1234')
+            if (result === 'ok') navigate(dest, { replace: true })
+          }}
+        >
+          <Zap size={14} /> One-click demo sign in
+        </Button>
+      </div>
     </AuthLayout>
   )
 }
