@@ -7,6 +7,7 @@ import { useThemeStore } from '../../stores/theme-store'
 import { useUiStore } from '../../stores/ui-store'
 import { Dropdown, DropdownTrigger, DropdownContent } from '../ui/dropdown'
 import { Avatar } from '../ui/avatar'
+import { useAuthStore } from '../../features/auth/auth-store'
 import { CURRENT_USER_ID, userById } from '../../mocks/users'
 
 export function Topbar() {
@@ -72,9 +73,18 @@ export function Topbar() {
         </DropdownTrigger>
         <DropdownContent
           items={[
+            ...(useAuthStore.getState().users.find((u) => u.id === useAuthStore.getState().sessionUserId)?.role === 'Owner'
+              ? [{ label: 'Admin panel', onSelect: () => navigate('/admin') }]
+              : []),
             { label: 'Profile & settings', onSelect: () => navigate('/settings') },
             { label: 'View client portal', onSelect: () => navigate('/portal') },
-            { label: 'Sign out', danger: true, onSelect: () => useUiStore.getState().toast('Demo — no auth in the frontend MVP', 'info') },
+            {
+              label: 'Sign out', danger: true,
+              onSelect: () => {
+                useAuthStore.getState().logout()
+                navigate('/login')
+              },
+            },
           ]}
         />
       </Dropdown>
