@@ -91,16 +91,19 @@ export function RequestsPage() {
               const project = projectById(r.projectId)
               const overdue = isOverdue(r.dueDate) && r.status !== 'complete'
               return (
-                <div key={r.id} className="flex flex-wrap items-center gap-3 rounded-lg px-3 py-3 transition-colors hover:bg-[var(--fill)]">
-                  <div className="min-w-0 flex-1 basis-52">
+                <div
+                  key={r.id}
+                  className="flex flex-wrap items-center gap-3 rounded-lg px-3 py-3 transition-colors hover:bg-[var(--fill)] sm:grid sm:grid-cols-[minmax(0,1fr)_9rem_2.25rem_7.5rem_8.5rem_6.5rem_2rem] sm:items-center sm:gap-3"
+                >
+                  <div className="min-w-0">
                     <p className="truncate text-[13.5px] font-medium">{r.title}</p>
                     <p className="truncate text-[12px] text-muted">{r.description}</p>
                   </div>
-                  <span className="w-32 truncate text-[12px] text-muted">{project?.name.split(' — ')[1] ?? project?.name}</span>
-                  <AvatarOf userId={r.assigneeId} size="sm" />
-                  <span className={`w-24 text-[12px] ${overdue ? 'font-medium text-[var(--danger)]' : 'text-muted'}`}>{dueLabel(r.dueDate)}</span>
-                  <Badge tone={requestStatusTone[r.status]}>{requestStatusLabel[r.status]}</Badge>
-                  <VisibilityBadge visibility={r.visibility} />
+                  <span className="truncate text-[12px] text-muted">{project?.name.split(' — ')[1] ?? project?.name}</span>
+                  <span className="flex justify-center"><AvatarOf userId={r.assigneeId} size="sm" /></span>
+                  <span className={`truncate text-[12px] ${overdue ? 'font-medium text-[var(--danger)]' : 'text-muted'}`}>{dueLabel(r.dueDate)}</span>
+                  <span><Badge tone={requestStatusTone[r.status]}>{requestStatusLabel[r.status]}</Badge></span>
+                  <span><VisibilityBadge visibility={r.visibility} /></span>
                   <Dropdown>
                     <DropdownTrigger asChild>
                       <button className="btn btn-ghost btn-icon btn-sm" aria-label={`Actions for ${r.title}`}>
