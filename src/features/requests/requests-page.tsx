@@ -10,6 +10,7 @@ import { EmptyState } from '../../components/ui/empty-state'
 import { Dropdown, DropdownContent, DropdownTrigger } from '../../components/ui/dropdown'
 import { Button } from '../../components/ui/button'
 import { Select } from '../../components/ui/input'
+import { SelectDropdown } from '../../components/ui/select-dropdown'
 import { Tabs } from '../../components/ui/tabs'
 import { RequestDialog } from './request-dialog'
 import { useWorkspaceStore } from '../../stores/workspace-store'
@@ -67,12 +68,13 @@ export function RequestsPage() {
 
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <Tabs items={items} value={statusFilter} onValueChange={setStatusFilter} />
-        <Select value={projectFilter} onChange={(e) => setProjectFilter(e.target.value)} className="h-9 w-auto max-w-56" aria-label="Filter by project">
-          <option value="all">All projects</option>
-          {projects.map((p) => (
-            <option key={p.id} value={p.id}>{p.name}</option>
-          ))}
-        </Select>
+        <SelectDropdown
+          className="w-56"
+          value={projectFilter}
+          onChange={setProjectFilter}
+          ariaLabel="Filter by project"
+          options={[{ value: 'all', label: 'All projects' }, ...projects.map((p) => ({ value: p.id, label: p.name }))]}
+        />
       </div>
 
       <Card>

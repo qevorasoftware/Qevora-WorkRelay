@@ -549,3 +549,35 @@ textarea.input {
 @media (prefers-reduced-motion: reduce) {
   .floaty, .auth-rise, .auth-pop, .auth-backdrop::before { animation: none; }
 }
+
+/* ---------- Apple-style select dropdown ---------- */
+.select-trigger {
+  display: flex;
+  width: 100%;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0 0.8rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  color: var(--text);
+  font-size: 0.8125rem;
+  text-align: left;
+  transition: border-color var(--dur-1) var(--ease), box-shadow var(--dur-1) var(--ease);
+}
+.select-trigger:hover { border-color: var(--line); }
+.select-trigger:focus-visible { outline: none; border-color: var(--accent); }
+.select-trigger[data-open='true'] { border-color: var(--accent); }
+.select-trigger[data-invalid='true'] { border-color: var(--danger); }
+
+.select-menu {
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--glass-lift), inset 0 1.5px 0 var(--glass-specular);
+}

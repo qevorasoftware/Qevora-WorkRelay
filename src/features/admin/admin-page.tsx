@@ -10,7 +10,8 @@ import { Card } from '../../components/ui/card'
 import { Badge } from '../../components/ui/badge'
 import { Avatar } from '../../components/ui/avatar'
 import { Button } from '../../components/ui/button'
-import { Input, Select, FieldError } from '../../components/ui/input'
+import { Input, FieldError } from '../../components/ui/input'
+import { SelectDropdown } from '../../components/ui/select-dropdown'
 import { EmptyState } from '../../components/ui/empty-state'
 import { Dropdown, DropdownTrigger, DropdownContent } from '../../components/ui/dropdown'
 import { Dialog, DialogContent } from '../../components/ui/dialog'
@@ -236,10 +237,15 @@ export function AdminPage() {
             </div>
             <div>
               <label className="label" htmlFor="inv-role">Role</label>
-              <Select id="inv-role" value={inviteRole} onChange={(e) => setInviteRole(e.target.value as Role)}>
-                <option value="Member">Member — projects and chat</option>
-                <option value="Admin">Admin — manage people and settings</option>
-              </Select>
+              <SelectDropdown
+                value={inviteRole}
+                onChange={(v) => setInviteRole(v as Role)}
+                options={[
+                  { value: 'Member', label: 'Member — projects and chat' },
+                  { value: 'Admin', label: 'Admin — manage people and settings' },
+                ]}
+                ariaLabel="Role"
+              />
             </div>
             <div className="flex justify-end gap-2">
               <Button variant="ghost" onClick={() => setInviteOpen(false)}>Cancel</Button>

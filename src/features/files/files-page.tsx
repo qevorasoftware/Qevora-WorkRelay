@@ -5,6 +5,7 @@ import { PageTransition } from '../../components/layout/page-transition'
 import { Card } from '../../components/ui/card'
 import { Badge } from '../../components/ui/badge'
 import { Select } from '../../components/ui/input'
+import { SelectDropdown } from '../../components/ui/select-dropdown'
 import { Button } from '../../components/ui/button'
 import { Progress } from '../../components/ui/progress'
 import { EmptyState } from '../../components/ui/empty-state'
@@ -136,12 +137,13 @@ export function FilesPage() {
       </div>
 
       <div className="mb-4">
-        <Select value={projectFilter} onChange={(e) => setProjectFilter(e.target.value)} className="max-w-64" aria-label="Filter files by project">
-          <option value="all">All projects</option>
-          {projects.map((p) => (
-            <option key={p.id} value={p.id}>{p.name}</option>
-          ))}
-        </Select>
+        <SelectDropdown
+          className="w-64"
+          value={projectFilter}
+          onChange={setProjectFilter}
+          ariaLabel="Filter files by project"
+          options={[{ value: 'all', label: 'All projects' }, ...projects.map((p) => ({ value: p.id, label: p.name }))]}
+        />
       </div>
 
       {filtered.length === 0 ? (

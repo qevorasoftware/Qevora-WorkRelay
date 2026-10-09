@@ -8,7 +8,8 @@ import { PageTransition } from '../../components/layout/page-transition'
 import { Card, CardHeader } from '../../components/ui/card'
 import { Segmented } from '../../components/ui/segmented'
 import { Switch } from '../../components/ui/switch'
-import { Input, Select, Textarea, FieldError } from '../../components/ui/input'
+import { Input, Textarea, FieldError } from '../../components/ui/input'
+import { SelectDropdown } from '../../components/ui/select-dropdown'
 import { Button } from '../../components/ui/button'
 import { Badge } from '../../components/ui/badge'
 import { Avatar } from '../../components/ui/avatar'
@@ -288,15 +289,21 @@ export function SettingsPage() {
                 </div>
                 <div>
                   <label className="label" htmlFor="pf-tz">Timezone</label>
-                  <Select id="pf-tz" value={form.timezone} onChange={(e) => setForm((f) => ({ ...f, timezone: e.target.value }))}>
-                    {TIMEZONES.map((t) => <option key={t} value={t}>{t}</option>)}
-                  </Select>
+                  <SelectDropdown
+                    value={form.timezone}
+                    onChange={(v) => setForm((f) => ({ ...f, timezone: v }))}
+                    options={TIMEZONES.map((t) => ({ value: t, label: t }))}
+                    ariaLabel="Timezone"
+                  />
                 </div>
                 <div>
                   <label className="label" htmlFor="pf-lang">Language</label>
-                  <Select id="pf-lang" value={form.language} onChange={(e) => setForm((f) => ({ ...f, language: e.target.value }))}>
-                    {LANGUAGES.map((l) => <option key={l} value={l}>{l}</option>)}
-                  </Select>
+                  <SelectDropdown
+                    value={form.language}
+                    onChange={(v) => setForm((f) => ({ ...f, language: v }))}
+                    options={LANGUAGES.map((l) => ({ value: l, label: l }))}
+                    ariaLabel="Language"
+                  />
                 </div>
               </div>
               <div>

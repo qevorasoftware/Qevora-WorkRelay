@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Dialog, DialogContent } from '../../components/ui/dialog'
-import { Input, Select, Textarea, FieldError } from '../../components/ui/input'
+import { SelectDropdown } from '../../components/ui/select-dropdown'
+import { Input, Textarea, FieldError } from '../../components/ui/input'
 import { Button } from '../../components/ui/button'
 import { requestSchema, type RequestInput } from '../../lib/validation'
 import { useWorkspaceStore } from '../../stores/workspace-store'
@@ -65,22 +66,26 @@ export function RequestDialog({ open, onOpenChange, defaultProjectId }: {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="label" htmlFor="rq-project">Project</label>
-              <Select id="rq-project" value={form.projectId} onChange={set('projectId')} aria-invalid={!!errors.projectId}>
-                <option value="">Select project…</option>
-                {projects.map((p) => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
-                ))}
-              </Select>
+              <SelectDropdown
+                value={form.projectId}
+                onChange={(v) => { setForm((f) => ({ ...f, projectId: v })); setErrors((er) => ({ ...er, projectId: undefined })) }}
+                options={projects.map((p) => ({ value: p.id, label: p.name }))}
+                placeholder="Select project…"
+                ariaLabel="Project"
+                invalid={!!errors.projectId}
+              />
               <FieldError message={errors.projectId} />
             </div>
             <div>
               <label className="label" htmlFor="rq-assignee">Owner</label>
-              <Select id="rq-assignee" value={form.assigneeId} onChange={set('assigneeId')} aria-invalid={!!errors.assigneeId}>
-                <option value="">Select owner…</option>
-                {users.map((u) => (
-                  <option key={u.id} value={u.id}>{u.name} — {u.role}</option>
-                ))}
-              </Select>
+              <SelectDropdown
+                value={form.assigneeId}
+                onChange={(v) => { setForm((f) => ({ ...f, assigneeId: v })); setErrors((er) => ({ ...er, assigneeId: undefined })) }}
+                options={users.map((u) => ({ value: u.id, label: `${u.name} — ${u.role}` }))}
+                placeholder="Select owner…"
+                ariaLabel="Owner"
+                invalid={!!errors.assigneeId}
+              />
               <FieldError message={errors.assigneeId} />
             </div>
           </div>
