@@ -4,6 +4,7 @@ import { Eye, EyeOff, Zap } from 'lucide-react'
 import { AuthLayout, AuthError } from './auth-layout'
 import { OtpInput, DemoAuthenticatorHint, DemoMailbox } from './otp-input'
 import { useAuthStore, demoAuthenticatorCode } from './auth-store'
+import { SocialButtons } from './social-buttons'
 import { Button } from '../../components/ui/button'
 import { Input, FieldError } from '../../components/ui/input'
 
@@ -143,6 +144,8 @@ export function LoginPage() {
           <Zap size={14} /> One-click demo sign in
         </Button>
       </div>
+
+      <SocialButtons />
     </AuthLayout>
   )
 }

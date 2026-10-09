@@ -68,31 +68,33 @@ export function AuthLayout({ title, subtitle, children, footer }: {
             ))}
           </div>
 
-          {/* Floating product showcase */}
-          <div className="relative mt-12 h-[150px] max-w-md">
-            <div className="floaty glass-card absolute left-0 top-0 w-[270px] p-4" style={{ '--rot': '-2deg', animationDelay: '0.6s' } as React.CSSProperties}>
-              <div className="flex items-center justify-between">
-                <p className="text-[12.5px] font-semibold">Homepage redesign — v4</p>
-                <span className="badge-success"><CheckCircle2 size={11} /> Approved</span>
+          {/* Floating product showcase — static rows, never overlapping */}
+          <div className="mt-12 max-w-md space-y-3.5">
+            <div className="flex items-stretch gap-3.5">
+              <div className="floaty glass-card min-w-0 flex-1 p-4" style={{ '--rot': '-1.5deg', animationDelay: '0.6s' } as CSSProperties}>
+                <div className="flex items-center justify-between gap-2">
+                  <p className="truncate text-[12.5px] font-semibold">Homepage redesign — v4</p>
+                  <span className="badge-success shrink-0"><CheckCircle2 size={11} /> Approved</span>
+                </div>
+                <p className="mt-0.5 text-[11px] text-muted">Client sign-off · 2 min ago</p>
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[var(--fill)]">
+                  <div className="h-full w-4/5 rounded-full" style={{ background: 'linear-gradient(90deg, var(--accent), #7c5cff)' }} />
+                </div>
               </div>
-              <p className="mt-0.5 text-[11px] text-muted">Client sign-off · 2 min ago</p>
-              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[var(--fill)]">
-                <div className="h-full w-4/5 rounded-full" style={{ background: 'linear-gradient(90deg, var(--accent), #7c5cff)' }} />
+              <div className="floaty glass-card w-[164px] shrink-0 p-4" style={{ '--rot': '1.2deg', animationDelay: '1.3s' } as CSSProperties}>
+                <div className="flex items-center gap-1.5 text-muted">
+                  <FolderKanban size={12} />
+                  <p className="truncate text-[10px] font-medium uppercase tracking-wide">Active</p>
+                </div>
+                <p className="mt-0.5 text-[24px] font-semibold tabular-nums leading-none tracking-tight">12</p>
+                <div className="mt-2 flex items-end gap-1">
+                  {[38, 55, 42, 70, 88].map((h, i) => (
+                    <span key={i} className="w-2.5 rounded-sm" style={{ height: `${Math.round(h * 0.26)}px`, background: i === 4 ? 'var(--accent)' : 'var(--fill)' }} />
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="floaty glass-card absolute right-2 top-9 w-[190px] p-4" style={{ '--rot': '1.5deg', animationDelay: '1.4s' } as React.CSSProperties}>
-              <div className="flex items-center gap-2 text-muted">
-                <FolderKanban size={13} />
-                <p className="text-[11px] font-medium uppercase tracking-wide">Active projects</p>
-              </div>
-              <p className="mt-1 text-[26px] font-semibold tabular-nums tracking-tight">12</p>
-              <div className="mt-1.5 flex items-end gap-1">
-                {[38, 55, 42, 70, 88].map((h, i) => (
-                  <span key={i} className="w-3 rounded-sm" style={{ height: `${h * 0.28}px`, background: i === 4 ? 'var(--accent)' : 'var(--fill)' }} />
-                ))}
-              </div>
-            </div>
-            <div className="floaty liquid-glass absolute bottom-0 left-14 flex items-center gap-2 rounded-full px-4 py-2" style={{ '--rot': '-1deg', animationDelay: '2.2s' } as React.CSSProperties}>
+            <div className="floaty liquid-glass ml-8 inline-flex items-center gap-2 rounded-full px-4 py-2" style={{ '--rot': '-0.8deg', animationDelay: '2s' } as CSSProperties}>
               <div className="flex -space-x-1.5">
                 {['#0a84ff', '#7c5cff', '#ec4899'].map((c) => (
                   <span key={c} className="h-5 w-5 rounded-full border-2 border-white/70" style={{ background: c }} />
@@ -101,17 +103,6 @@ export function AuthLayout({ title, subtitle, children, footer }: {
               <p className="text-[11.5px] font-medium">Clients love it <Star size={10} className="inline text-[#ff9f0a]" /> 4.9</p>
             </div>
           </div>
-        </div>
-
-        {/* Form side — elevated glass card */}
-        <div className="mx-auto w-full max-w-[440px] lg:mx-0 lg:ml-auto">
-          <div className="auth-pop glass-card p-6 sm:p-8">
-            <h2 className="text-[21px] font-semibold tracking-tight">{title}</h2>
-            {subtitle && <p className="mt-1 text-[13px] leading-relaxed text-muted">{subtitle}</p>}
-            <div className="mt-5">{children}</div>
-          </div>
-          {footer && <div className="mt-4 text-center text-[12.5px] text-muted">{footer}</div>}
-          <p className="mt-6 text-center text-[11px] text-faint">© 2026 Qevora Software · MIT License</p>
         </div>
         </div>
       </main>
