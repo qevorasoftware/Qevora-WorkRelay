@@ -36,7 +36,7 @@ interface WorkspaceState {
   }) => Request
   setRequestStatus: (id: string, status: RequestStatus) => void
   decideApproval: (id: string, decision: Exclude<ApprovalStatus, 'pending'>, comment?: string) => void
-  addFile: (input: { projectId: string; name: string; kind: FileItem['kind']; sizeLabel: string; visibility: FileItem['visibility'] }) => FileItem
+  addFile: (input: { projectId: string; name: string; kind: FileItem['kind']; sizeLabel: string; visibility: FileItem['visibility']; objectUrl?: string; mime?: string; textPreview?: string }) => FileItem
   updateFile: (id: string, patch: Partial<FileItem>) => void
   markNotification: (id: string) => void
   markAllNotifications: () => void
@@ -122,6 +122,9 @@ export const useWorkspaceStore = create<WorkspaceState>()((set) => ({
       visibility: input.visibility,
       uploading: true,
       progress: 0,
+      objectUrl: input.objectUrl,
+      mime: input.mime,
+      textPreview: input.textPreview,
     }
     set((s) => ({
       files: [file, ...s.files],

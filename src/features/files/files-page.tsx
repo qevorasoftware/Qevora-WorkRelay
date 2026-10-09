@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
-import { CloudUpload, File, Folder, UploadCloud } from 'lucide-react'
+import { CloudUpload, Eye, File, Folder, UploadCloud } from 'lucide-react'
 import { PageHeader } from '../../components/layout/page-header'
 import { PageTransition } from '../../components/layout/page-transition'
 import { Card } from '../../components/ui/card'
@@ -43,19 +43,35 @@ export function FilesPage() {
     [files, projectFilter]
   )
 
-  const startUpload = (names: { name: string; size: number }[]) => {
-    names.forEach((n) => {
+  const startUpload = async (names: { name: string; size: number; file?: File }[]) => {
+    for (const n of names) {
+      const f = n.file
+      const previewable = !!f && (f.type.startsWith('image/') || f.type === 'application/pdf' || f.type.startsWith('video/') || f.type.startsWith('audio/'))
+      const textLike = !!f && (f.type.startsWith('text/') || /\.(txt|md|csv|json|log|xml|yml|yaml)$/i.test(n.name))
+      const codeLike = !!f && /\.(js|jsx|ts|tsx|css|html|py|sh)$/i.test(n.name)
+      let textPreview: string | undefined
+      if (f && (textLike || codeLike)) {
+        textPreview = await f.text().catch(() => undefined)
+        if (textPreview && textPreview.length > 40000) textPreview = textPreview.slice(0, 40000) + '\n… (truncated preview)'
+      }
       const file = addFile({
         projectId: projectFilter === 'all' ? 'p1' : projectFilter,
         name: n.name,
         kind: kindOf(n.name),
         sizeLabel: humanSize(n.size || 512000),
         visibility: 'client',
+        objectUrl: previewable && f ? URL.createObjectURL(f) : undefined,
+        mime: f?.type,
+        textPreview,
       })
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       if (reduced) {
         updateFile(file.id, { uploading: false, progress: 100 })
         return
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        updateFile(file.id, { uploading: false, progress: 100 })
+        continue
       }
       let p = 0
       const timer = setInterval(() => {
@@ -68,7 +84,7 @@ export function FilesPage() {
           updateFile(file.id, { progress: p })
         }
       }, 260)
-    })
+    }
   }
 
   return (
@@ -94,7 +110,7 @@ export function FilesPage() {
         onDrop={(e) => {
           e.preventDefault()
           setDragOver(false)
-          const dropped = Array.from(e.dataTransfer.files).map((f) => ({ name: f.name, size: f.size }))
+          const dropped = Array.from(e.dataTransfer.files).map((f) => ({ name: f.name, size: f.size, file: f }))
           if (dropped.length) startUpload(dropped)
         }}
         className={cn(
@@ -112,7 +128,7 @@ export function FilesPage() {
           className="hidden"
           aria-hidden="true"
           onChange={(e) => {
-            const picked = Array.from(e.target.files ?? []).map((f) => ({ name: f.name, size: f.size }))
+            const picked = Array.from(e.target.files ?? []).map((f) => ({ name: f.name, size: f.size, file: f }))
             if (picked.length) startUpload(picked)
             e.target.value = ''
           }}
@@ -153,6 +169,17 @@ export function FilesPage() {
                 <div className="mt-2.5">
                   <Progress value={f.progress ?? 0} />
                   <p className="mt-1 text-[10px] font-medium text-muted">Uploading… {Math.round(f.progress ?? 0)}%</p>
+                </div>
+              )}
+              {!f.uploading && (
+                <div className="mt-3 flex justify-end border-t border-[var(--hairline)] pt-2.5">
+                  <button
+                    className="btn btn-secondary btn-sm"
+                    onClick={(e) => { e.stopPropagation(); setPreview(f) }}
+                    aria-label={`Preview ${f.name}`}
+                  >
+                    <Eye size={13} /> Preview
+                  </button>
                 </div>
               )}
             </Card>

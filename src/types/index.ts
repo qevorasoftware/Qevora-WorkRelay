@@ -112,6 +112,10 @@ export interface FileItem {
   visibility: Visibility
   progress?: number
   uploading?: boolean
+  /** Real preview for user-uploaded files (demo local object URLs) */
+  objectUrl?: string
+  mime?: string
+  textPreview?: string
 }
 
 export interface Notification {
