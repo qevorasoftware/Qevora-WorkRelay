@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Check, ChevronDown } from 'lucide-react'
 import { cn } from '../../lib/utils'
 
@@ -8,7 +9,9 @@ export interface SelectOption {
 }
 
 /** Apple-style dropdown menu (iOS 26 look) — replaces every native <select>.
- *  Glass popover, checkmark on the selected row, keyboard + outside-click. */
+ *  The menu renders in a PORTAL with fixed positioning, so it never clips or
+ *  scroll-traps inside dialogs/overflow containers; it follows its trigger on
+ *  scroll and flips upward when there's no room below. */
 export function SelectDropdown({ value, onChange, options, placeholder, className, ariaLabel, invalid }: {
   value: string
   onChange: (value: string) => void
@@ -20,20 +23,51 @@ export function SelectDropdown({ value, onChange, options, placeholder, classNam
 }) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
+  const [pos, setPos] = useState<{ left: number; top: number; width: number; up: boolean } | null>(null)
   const rootRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   const selected = options.find((o) => o.value === value)
   const selectedIndex = Math.max(0, options.findIndex((o) => o.value === value))
 
-  /* Close on outside pointer press */
+  const measure = useCallback(() => {
+    const trigger = rootRef.current?.querySelector('button')
+    if (!trigger) return
+    const r = trigger.getBoundingClientRect()
+    const menuH = Math.min(options.length * 38 + 12, 300)
+    const up = r.bottom + menuH + 12 > window.innerHeight && r.top - menuH - 12 > 0
+    setPos({ left: r.left, top: up ? r.top - menuH - 6 : r.bottom + 6, width: r.width, up })
+  }, [options.length])
+
+  useLayoutEffect(() => {
+    if (open) measure()
+  }, [open, measure])
+
+  /* Follow the trigger while any container scrolls; close if unmounted region scrolls far */
   useEffect(() => {
     if (!open) return
+    const onScroll = () => measure()
     const onDown = (e: PointerEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false)
+      const t = e.target as Node
+      if (!rootRef.current?.contains(t) && !menuRef.current?.contains(t)) setOpen(false)
     }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopImmediatePropagation()
+        setOpen(false)
+      }
+    }
+    document.addEventListener('scroll', onScroll, true)
+    window.addEventListener('resize', onScroll)
     document.addEventListener('pointerdown', onDown)
-    return () => document.removeEventListener('pointerdown', onDown)
-  }, [open])
+    document.addEventListener('keydown', onKey, true)
+    return () => {
+      document.removeEventListener('scroll', onScroll, true)
+      window.removeEventListener('resize', onScroll)
+      document.removeEventListener('pointerdown', onDown)
+      document.removeEventListener('keydown', onKey, true)
+    }
+  }, [open, measure])
 
   const choose = (v: string) => {
     onChange(v)
@@ -49,11 +83,18 @@ export function SelectDropdown({ value, onChange, options, placeholder, classNam
         aria-label={ariaLabel}
         onClick={() => { setActive(selectedIndex); setOpen((o) => !o) }}
         onKeyDown={(e) => {
-          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            setActive(selectedIndex)
-            setOpen(true)
+          if (!open) {
+            if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              setActive(selectedIndex)
+              setOpen(true)
+            }
+            return
           }
+          if (e.key === 'ArrowDown') { e.preventDefault(); setActive((a) => Math.min(options.length - 1, a + 1)) }
+          else if (e.key === 'ArrowUp') { e.preventDefault(); setActive((a) => Math.max(0, a - 1)) }
+          else if (e.key === 'Enter') { e.preventDefault(); if (options[active]) choose(options[active].value) }
+          else if (e.key === 'Escape') { e.stopPropagation(); setOpen(false) }
         }}
         className="select-trigger"
         data-open={open}
@@ -69,21 +110,20 @@ export function SelectDropdown({ value, onChange, options, placeholder, classNam
         />
       </button>
 
-      {open && (
+      {open && pos && createPortal(
         <div
-                    role="listbox"
+          ref={menuRef}
+          role="listbox"
           aria-label={ariaLabel}
-          tabIndex={-1}
-          autoFocus
           data-state="open"
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') { e.preventDefault(); setOpen(false); return }
-            if (e.key === 'ArrowDown') { e.preventDefault(); setActive((a) => Math.min(options.length - 1, a + 1)); return }
-            if (e.key === 'ArrowUp') { e.preventDefault(); setActive((a) => Math.max(0, a - 1)); return }
-            if (e.key === 'Enter') { e.preventDefault(); if (options[active]) choose(options[active].value) }
+          className="select-menu anim-pop scroll-thin fixed z-[90] max-h-[300px] overflow-y-auto rounded-2xl p-1.5 outline-none"
+          style={{
+            left: pos.left,
+            top: pos.top,
+            minWidth: pos.width,
+            maxWidth: 'min(340px, 92vw)',
+            transformOrigin: pos.up ? 'bottom left' : 'top left',
           }}
-          className="select-menu anim-pop scroll-thin absolute left-0 top-full z-50 mt-1.5 max-h-[300px] min-w-full w-max overflow-y-auto rounded-2xl p-1.5 outline-none"
-          style={{ transformOrigin: 'top left' }}
         >
           {options.map((o, i) => {
             const isSel = o.value === value
@@ -106,7 +146,8 @@ export function SelectDropdown({ value, onChange, options, placeholder, classNam
               </button>
             )
           })}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
