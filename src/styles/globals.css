@@ -87,8 +87,14 @@
   pointer-events: none;
 }
 
-/* Ambient canvas light — whisper tints so glass has something to refract */
+/* Ambient canvas light — whisper tints so glass has something to refract.
+   The container stays interactive; the light itself is a pointer-free layer. */
 .ambient {
+  position: relative;
+  background: var(--bg);
+}
+.ambient::before {
+  content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
