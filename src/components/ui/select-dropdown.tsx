@@ -57,6 +57,17 @@ export function SelectDropdown({ value, onChange, options, placeholder, classNam
         setOpen(false)
       }
     }
+    /* Native-level guards on the portal menu (React handlers alone are too
+     * late for document-level listeners):
+     * - stopPropagation on pointerdown -> Radix's outside-pointerdown dismiss
+     *   never sees menu interaction.
+     * - preventDefault on mousedown -> the browser never moves focus into the
+     *   menu, so the dialog never gets a focus-out dismissal. */
+    const menu = menuRef.current
+    const stopPointer = (e: Event) => e.stopPropagation()
+    const preventFocus = (e: Event) => { e.preventDefault(); e.stopPropagation() }
+    menu?.addEventListener('pointerdown', stopPointer)
+    menu?.addEventListener('mousedown', preventFocus)
     document.addEventListener('scroll', onScroll, true)
     window.addEventListener('resize', onScroll)
     document.addEventListener('pointerdown', onDown)
@@ -66,8 +77,10 @@ export function SelectDropdown({ value, onChange, options, placeholder, classNam
       window.removeEventListener('resize', onScroll)
       document.removeEventListener('pointerdown', onDown)
       document.removeEventListener('keydown', onKey, true)
+      menu?.removeEventListener('pointerdown', stopPointer)
+      menu?.removeEventListener('mousedown', preventFocus)
     }
-  }, [open, measure])
+  }, [open, measure, pos])
 
   const choose = (v: string) => {
     onChange(v)
