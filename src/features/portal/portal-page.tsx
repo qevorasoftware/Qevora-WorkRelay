@@ -52,12 +52,12 @@ export function PortalPage() {
 
   if (!client) {
     return (
-      <div className="min-h-screen bg-[var(--bg)]">
-        <header className="chrome sticky top-0 z-30 flex h-12 items-center gap-3 border-b border-line px-5">
+      <div className="ambient min-h-screen">
+        <header className="liquid-glass sticky top-3 z-30 mx-4 flex h-[52px] items-center gap-3 rounded-2xl px-4 lg:mx-6">
           <ShieldCheck size={17} className="text-[var(--success)]" />
           <p className="text-[13.5px] font-semibold">Client workspace</p>
         </header>
-        <main className="mx-auto w-full max-w-2xl px-5 py-10">
+        <main className="mx-auto w-full max-w-5xl px-4 pb-14 pt-[72px] sm:px-6 lg:px-8">
           <div className="mb-4 flex items-center justify-between">
             <h1 className="text-[22px] font-semibold tracking-tight">Choose a workspace</h1>
             <Link to="/" className="btn btn-ghost btn-sm"><ArrowLeft size={13} /> Back to app</Link>
@@ -108,8 +108,8 @@ export function PortalPage() {
   const activeChat = visibleChats[0]
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
-      <header className="chrome sticky top-0 z-30 flex h-12 items-center gap-3 border-b border-line px-5">
+    <div className="ambient min-h-screen">
+      <header className="liquid-glass sticky top-3 z-30 mx-4 flex h-[52px] items-center gap-3 rounded-2xl px-4 lg:mx-6">
         <ShieldCheck size={17} className="text-[var(--success)]" />
         <div className="min-w-0 flex-1">
           <p className="truncate text-[13.5px] font-semibold">{client.company}</p>
@@ -124,7 +124,7 @@ export function PortalPage() {
         </Button>
       </header>
 
-      <main className="mx-auto w-full max-w-3xl px-5 py-7">
+      <main className="w-full px-4 pb-14 pt-[72px] sm:px-6 lg:px-8">
         <Card className="mb-4 p-5">
           <p className="text-[15px] font-semibold">{clientProjects[0]?.name ?? 'Project'}</p>
           <p className="mt-0.5 text-[12.5px] text-muted">{clientProjects[0]?.tagline}</p>

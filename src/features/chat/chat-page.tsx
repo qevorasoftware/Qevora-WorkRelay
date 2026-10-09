@@ -187,7 +187,7 @@ export function ChatPage() {
 
   return (
     <PageTransition>
-      <Card className="flex h-[calc(100vh-9.5rem)] min-h-[460px] overflow-hidden">
+      <Card className="flex h-[calc(100vh-9rem)] min-h-[460px] overflow-hidden">
         {/* Conversation list */}
         <div className={cn('flex w-full flex-col border-r border-line sm:w-[260px] sm:shrink-0', showListOnMobile ? 'flex' : 'hidden sm:flex')}>
           <div className="border-b border-line p-2.5">

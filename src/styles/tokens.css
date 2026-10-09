@@ -1,24 +1,24 @@
 /* ============================================================
-   Qevora WorkRelay — Apple pure minimal tokens
-   Light: white canvas / #F5F5F7 surfaces. Dark: true black.
-   One accent. Hairlines over shadows. Type over decoration.
+   Qevora WorkRelay — Apple pure minimal + Liquid Glass (iOS 26)
+   Light: white canvas. Dark: true black. One accent.
+   Glass: real show-through + specular edge, chrome & overlays only.
    ============================================================ */
 
 :root {
-  --bg: #F5F5F7;                 /* Apple canvas gray */
-  --surface: #FFFFFF;            /* cards, sheets */
-  --surface-2: rgba(245, 245, 247, 0.85);  /* nested / hover fills */
-  --fill: rgba(120, 120, 128, 0.08);       /* iOS systemFill */
+  --bg: #F5F5F7;
+  --surface: #FFFFFF;
+  --surface-2: rgba(245, 245, 247, 0.85);
+  --fill: rgba(120, 120, 128, 0.08);
   --fill-strong: rgba(120, 120, 128, 0.14);
 
-  --text: #1D1D1F;               /* Apple near-black */
-  --text-2: #6E6E73;             /* secondary */
-  --text-3: #86868B;             /* tertiary / captions */
+  --text: #1D1D1F;
+  --text-2: #6E6E73;
+  --text-3: #86868B;
 
   --hairline: rgba(0, 0, 0, 0.09);
   --hairline-strong: rgba(0, 0, 0, 0.16);
 
-  --accent: #0071E3;             /* Apple blue */
+  --accent: #0071E3;
   --accent-hover: #0077ED;
   --accent-tint: rgba(0, 113, 227, 0.10);
   --on-accent: #FFFFFF;
@@ -32,15 +32,22 @@
   --info: #0071E3;
   --info-tint: rgba(0, 113, 227, 0.10);
 
-  /* Sidebar / topbar chrome — the only translucency in the app */
-  --chrome-bg: rgba(245, 245, 247, 0.78);
-  --chrome-blur: blur(20px) saturate(180%);
+  /* Liquid Glass — light (over the airy canvas) */
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-specular: rgba(255, 255, 255, 0.95);
+  --glass-inner: rgba(255, 255, 255, 0.30);
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
 
-  --shadow-card: none;
+  /* Ambient light behind the glass — whisper-subtle, stays minimal */
+  --amb-1: rgba(0, 113, 227, 0.05);
+  --amb-2: rgba(88, 86, 214, 0.045);
+  --amb-3: rgba(255, 149, 0, 0.035);
+
   --shadow-raised: 0 8px 24px rgba(0, 0, 0, 0.08);
 
-  /* Apple motion: standard easing, tight durations */
   --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --spring: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --dur-1: 150ms;
   --dur-2: 250ms;
 
@@ -49,7 +56,7 @@
 
 [data-theme='dark'] {
   --bg: #000000;
-  --surface: #1C1C1E;            /* Apple elevated dark */
+  --surface: #1C1C1E;
   --surface-2: rgba(44, 44, 46, 0.6);
   --fill: rgba(120, 120, 128, 0.22);
   --fill-strong: rgba(120, 120, 128, 0.32);
@@ -75,9 +82,17 @@
   --info: #0A84FF;
   --info-tint: rgba(10, 132, 255, 0.16);
 
-  --chrome-bg: rgba(18, 18, 20, 0.72);
+  /* Liquid Glass — dark: the show-through is the point */
+  --glass-bg: rgba(28, 28, 30, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-specular: rgba(255, 255, 255, 0.32);
+  --glass-inner: rgba(160, 170, 255, 0.05);
+  --glass-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
 
-  --shadow-card: none;
+  --amb-1: rgba(10, 132, 255, 0.07);
+  --amb-2: rgba(94, 92, 230, 0.06);
+  --amb-3: rgba(255, 159, 10, 0.04);
+
   --shadow-raised: 0 8px 24px rgba(0, 0, 0, 0.5);
 
   color-scheme: dark;

@@ -53,11 +53,11 @@ export function AreaChart({ data, height = 180, ariaLabel }: {
         return <line key={i} x1={padX} x2={w - padX} y1={gy} y2={gy} stroke="var(--hairline)" strokeWidth="1" />
       })}
 
-      <path d={areaPath} fill={`url(#fill-${uid})`} />
-      <path d={path} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+      <path d={areaPath} fill={`url(#fill-${uid})`} className="chart-points" />
+      <path d={path} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" className="chart-line" />
 
       {pts.map(([px, py], i) => (
-        <g key={i}>
+        <g key={i} className="chart-points">
           {i < pts.length - 1 && (
             <circle cx={px} cy={py} r="2.6" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.4" />
           )}

@@ -137,7 +137,7 @@ export function CommandPalette() {
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-[60] bg-black/20" />
         <DialogPrimitive.Content
-          className="anim-pop fixed left-1/2 top-[14%] z-[61] w-[min(94vw,560px)] -translate-x-1/2 rounded-2xl border border-line bg-card shadow-2xl focus:outline-none"
+          className="liquid-glass anim-pop fixed left-1/2 top-[14%] z-[61] w-[min(94vw,560px)] -translate-x-1/2 rounded-2xl focus:outline-none"
           onKeyDown={onInputKey}
         >
           <DialogPrimitive.Title className="sr-only">Command palette</DialogPrimitive.Title>

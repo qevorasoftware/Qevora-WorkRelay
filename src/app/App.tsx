@@ -19,7 +19,7 @@ import { Card } from '../components/ui/card'
 
 function NotFound() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--bg)] p-4">
+    <div className="ambient flex min-h-screen items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <EmptyState title="Page not found" hint="The link may be wrong, or the page moved." />
         <div className="flex justify-center pb-6">

@@ -10,13 +10,14 @@ export function AppShell() {
   const setMobileNavOpen = useUiStore((s) => s.setMobileNavOpen)
 
   return (
-    <div className="min-h-screen">
+    <div className="ambient min-h-screen">
       <div className="flex w-full">
         <Sidebar />
         <SidebarDrawer open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
-        <div className="min-w-0 flex-1 bg-[var(--bg)]">
+        <div className="min-w-0 flex-1">
           <Topbar />
-          <main className="mx-auto w-full max-w-[1180px] px-5 py-7 lg:px-8">
+          {/* Full width on every page — content spans edge to edge */}
+          <main className="w-full px-4 pb-14 pt-[72px] sm:px-6 lg:px-8">
             <Outlet />
           </main>
         </div>

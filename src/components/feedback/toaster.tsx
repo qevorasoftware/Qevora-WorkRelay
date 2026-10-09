@@ -26,8 +26,8 @@ export function Toaster() {
               initial={reduce ? false : { opacity: 0, y: 12, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={reduce ? undefined : { opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
-              className="pointer-events-auto flex items-start gap-2.5 rounded-xl border border-line bg-card p-3 shadow-lg"
+              transition={{ type: "spring", stiffness: 420, damping: 32 }}
+              className="liquid-glass pointer-events-auto flex items-start gap-2.5 rounded-xl p-3"
             >
               <Icon size={16} className={cn('mt-0.5 shrink-0', {
                 success: 'text-[var(--success)]',

@@ -54,7 +54,7 @@ function SidebarContent() {
 
 export function Sidebar() {
   return (
-    <aside className="chrome sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col border-r border-line px-3 pb-4 pt-5 lg:flex">
+    <aside className="liquid-glass sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col rounded-none border-y-0 border-l-0 px-3 pb-4 pt-5 lg:flex">
       <SidebarContent />
     </aside>
   )
@@ -69,7 +69,7 @@ export function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () =>
         className="fixed inset-0 z-40 bg-black/25 lg:hidden"
         onClick={onClose}
       />
-      <aside className="chrome fixed left-0 top-0 bottom-0 z-50 flex w-[248px] flex-col border-r border-line px-3 pb-4 pt-5 lg:hidden">
+      <aside className="liquid-glass fixed left-0 top-0 bottom-0 z-50 flex w-[248px] flex-col rounded-none border-y-0 border-l-0 px-3 pb-4 pt-5 lg:hidden">
         <button
           onClick={onClose}
           className="btn btn-ghost btn-icon btn-sm mb-2 self-end"

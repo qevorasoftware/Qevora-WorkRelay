@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { motion, useReducedMotion } from 'motion/react'
 import { ChevronRight, Plus } from 'lucide-react'
+import { useCountUp } from '../../lib/use-count-up'
 import { PageTransition } from '../../components/layout/page-transition'
 import { Card, CardHeader } from '../../components/ui/card'
 import { Badge, healthTone, projectStatusLabel } from '../../components/ui/badge'
@@ -28,8 +30,24 @@ const deliveryPulse = [
   { label: '12 Oct', value: 12 },
 ]
 
+function StatTile({ label, value, active, onClick }: {
+  label: string
+  value: number
+  active: boolean
+  onClick: () => void
+}) {
+  const shown = useCountUp(value, active)
+  return (
+    <button onClick={onClick} className="card card-hover px-5 py-4 text-left">
+      <p className="text-[12.5px] text-muted">{label}</p>
+      <p className="mt-1 text-[26px] font-semibold tabular-nums tracking-tight">{shown}</p>
+    </button>
+  )
+}
+
 export function DashboardPage() {
   const navigate = useNavigate()
+  const reduce = useReducedMotion()
   const { loaded, markLoaded, projects, requests, approvals, activity } = useWorkspaceStore()
   const conversations = useChatStore((s) => s.conversations)
   const [activityFilter, setActivityFilter] = useState('all')
@@ -75,21 +93,19 @@ export function DashboardPage() {
 
       {/* Stat strip — quiet tiles */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {stats.map((s) => (
-          <button
+        {stats.map((s, i) => (
+          <motion.div
             key={s.label}
-            onClick={() => navigate(s.to)}
-            className="card card-hover px-5 py-4 text-left"
+            initial={reduce ? undefined : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: reduce ? 0 : 0.05 + i * 0.05, duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <p className="text-[12.5px] text-muted">{s.label}</p>
-            <p className="mt-1 text-[26px] font-semibold tabular-nums tracking-tight">
-              {loaded ? s.value : '–'}
-            </p>
-          </button>
+            <StatTile label={s.label} value={s.value} active={loaded} onClick={() => navigate(s.to)} />
+          </motion.div>
         ))}
       </div>
 
-      <div className="mt-4 grid gap-4 xl:grid-cols-3">
+      <motion.div className="mt-4 grid gap-4 xl:grid-cols-3" initial={reduce ? undefined : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: reduce ? 0 : 0.18, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
         {/* Delivery pulse */}
         <Card className="xl:col-span-2">
           <CardHeader
@@ -135,9 +151,9 @@ export function DashboardPage() {
             )}
           </div>
         </Card>
-      </div>
+      </motion.div>
 
-      <div className="mt-4 grid gap-4 xl:grid-cols-3">
+      <motion.div className="mt-4 grid gap-4 xl:grid-cols-3" initial={reduce ? undefined : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: reduce ? 0 : 0.28, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
         {/* Projects — Apple list, not cards */}
         <Card className="xl:col-span-2">
           <CardHeader
@@ -205,7 +221,7 @@ export function DashboardPage() {
             </div>
           </div>
         </Card>
-      </div>
+      </motion.div>
     </PageTransition>
   )
 }

@@ -23,7 +23,7 @@ export function DropdownContent({ items, children }: {
       <DropdownPrimitive.Content
         align="end"
         sideOffset={5}
-        className="anim-pop z-[70] min-w-44 rounded-xl border border-line bg-card p-1 shadow-lg focus:outline-none"
+        className="liquid-glass anim-pop z-[70] min-w-44 rounded-xl p-1 focus:outline-none"
       >
         {items.map((item) => (
           <DropdownPrimitive.Item

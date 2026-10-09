@@ -18,7 +18,7 @@ export class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex min-h-screen items-center justify-center bg-[var(--bg)] p-6">
+        <div className="ambient flex min-h-screen items-center justify-center p-6">
           <div className="card max-w-sm p-8 text-center">
             <span className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-full text-[var(--danger)]" style={{ background: 'var(--danger-tint)' }}>
               <AlertTriangle size={20} />
