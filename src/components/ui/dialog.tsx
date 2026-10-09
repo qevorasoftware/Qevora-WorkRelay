@@ -17,10 +17,10 @@ export function DialogContent({ className, children, title, description }: {
 }) {
   return (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/25" />
+      <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/30 dark:bg-black/55" />
       <DialogPrimitive.Content
         className={cn(
-          'liquid-glass anim-pop fixed left-1/2 top-1/2 z-50 w-[min(94vw,520px)] max-h-[88vh] overflow-y-auto scroll-thin -translate-x-1/2 -translate-y-1/2 rounded-2xl p-6 focus:outline-none',
+          'glass-sheet anim-pop fixed left-1/2 top-1/2 z-50 w-[min(94vw,520px)] max-h-[86vh] overflow-y-auto scroll-thin -translate-x-1/2 -translate-y-1/2 rounded-2xl p-6 focus:outline-none',
           className
         )}
       >

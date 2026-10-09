@@ -135,9 +135,9 @@ export function CommandPalette() {
   return (
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-[60] bg-black/20" />
+        <DialogPrimitive.Overlay className="fixed inset-0 z-[60] bg-black/30 dark:bg-black/55" />
         <DialogPrimitive.Content
-          className="liquid-glass anim-pop fixed left-1/2 top-[14%] z-[61] w-[min(94vw,560px)] -translate-x-1/2 rounded-2xl focus:outline-none"
+          className="glass-sheet anim-pop fixed left-1/2 top-[12vh] z-[61] w-[min(94vw,560px)] -translate-x-1/2 rounded-2xl focus:outline-none"
           onKeyDown={onInputKey}
         >
           <DialogPrimitive.Title className="sr-only">Command palette</DialogPrimitive.Title>

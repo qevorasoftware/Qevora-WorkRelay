@@ -27,7 +27,7 @@ export function Toaster() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={reduce ? undefined : { opacity: 0, scale: 0.98 }}
               transition={{ type: "spring", stiffness: 420, damping: 32 }}
-              className="liquid-glass pointer-events-auto flex items-start gap-2.5 rounded-xl p-3"
+              className="glass-sheet pointer-events-auto flex items-start gap-2.5 rounded-xl p-3"
             >
               <Icon size={16} className={cn('mt-0.5 shrink-0', {
                 success: 'text-[var(--success)]',

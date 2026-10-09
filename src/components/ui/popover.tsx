@@ -15,7 +15,7 @@ export function PopoverContent({ className, children }: {
       <PopoverPrimitive.Content
         align="end"
         sideOffset={7}
-        className={cn('liquid-glass anim-pop z-[70] w-80 rounded-xl p-3 focus:outline-none', className)}
+        className={cn('glass-sheet anim-pop z-[70] w-80 rounded-xl p-3 focus:outline-none', className)}
       >
         {children}
       </PopoverPrimitive.Content>
