@@ -149,9 +149,9 @@ export function CommandPalette() {
               onChange={(e) => { setQuery(e.target.value); setCursor(0) }}
               placeholder="Search projects, requests, actions…"
               aria-label="Search"
-              className="h-[52px] w-full bg-transparent text-[14px] outline-none placeholder:text-[var(--text-3)]"
+              className="h-[52px] min-w-0 flex-1 bg-transparent text-[14px] outline-none placeholder:text-[var(--text-3)]"
             />
-            <span className="kbd">ESC</span>
+            <span className="kbd shrink-0">ESC</span>
           </div>
           <div ref={listRef} className="max-h-[46vh] overflow-y-auto scroll-thin p-2">
             {Object.entries(grouped).map(([group, groupItems]) => (

@@ -20,24 +20,29 @@ export function DialogContent({ className, children, title, description }: {
       <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/30 dark:bg-black/55" />
       <DialogPrimitive.Content
         className={cn(
-          'glass-sheet anim-pop fixed left-1/2 top-1/2 z-50 w-[min(94vw,520px)] max-h-[86vh] overflow-y-auto scroll-thin -translate-x-1/2 -translate-y-1/2 rounded-2xl p-6 focus:outline-none',
+          'glass-sheet anim-pop fixed left-1/2 top-1/2 z-50 w-[min(94vw,520px)] max-h-[86vh] overflow-y-auto scroll-thin -translate-x-1/2 -translate-y-1/2 p-6 focus:outline-none',
           className
         )}
       >
-        <div className="mb-4 pr-8">
-          <DialogPrimitive.Title className="text-[17px] font-semibold tracking-tight">{title}</DialogPrimitive.Title>
-          {description && (
-            <DialogPrimitive.Description className="mt-1 text-[13px] text-muted">
-              {description}
-            </DialogPrimitive.Description>
-          )}
+        {/* Reserve the full close-button column so long titles never run under it */}
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <DialogPrimitive.Title className="break-words pr-0 text-[17px] font-semibold leading-snug tracking-tight">
+              {title}
+            </DialogPrimitive.Title>
+            {description && (
+              <DialogPrimitive.Description className="mt-1 text-[13px] text-muted">
+                {description}
+              </DialogPrimitive.Description>
+            )}
+          </div>
+          <DialogPrimitive.Close
+            aria-label="Close"
+            className="sticky top-0 -mr-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:bg-[var(--fill)] hover:text-[var(--text)]"
+          >
+            <X size={16} />
+          </DialogPrimitive.Close>
         </div>
-        <DialogPrimitive.Close
-          aria-label="Close"
-          className="absolute right-4 top-4 inline-flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-[var(--fill)] hover:text-[var(--text)]"
-        >
-          <X size={15} />
-        </DialogPrimitive.Close>
         {children}
       </DialogPrimitive.Content>
     </DialogPrimitive.Portal>

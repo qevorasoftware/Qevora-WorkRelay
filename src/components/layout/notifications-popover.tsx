@@ -33,8 +33,8 @@ export function NotificationsPopover() {
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-[21rem] p-0">
-        <div className="flex items-center justify-between px-3.5 pt-3 pb-2">
-          <p className="text-[13px] font-semibold">Notifications</p>
+        <div className="flex items-center justify-between gap-2 px-3.5 pt-3 pb-2">
+          <p className="min-w-0 flex-1 truncate text-[13px] font-semibold">Notifications</p>
           <button
             className="inline-flex items-center gap-1 text-[11.5px] font-medium text-[var(--accent)] hover:underline"
             onClick={markAll}

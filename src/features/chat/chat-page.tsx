@@ -224,7 +224,7 @@ export function ChatPage() {
                   ←
                 </button>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[13.5px] font-semibold">
+                  <p className="truncate text-[13.5px] font-semibold" title={active.name ?? userById(active.participantIds.find((p) => p !== CURRENT_USER_ID) ?? '')?.name}>
                     {active.name ?? userById(active.participantIds.find((p) => p !== CURRENT_USER_ID) ?? '')?.name}
                   </p>
                   <p className="truncate text-[11px] text-muted">

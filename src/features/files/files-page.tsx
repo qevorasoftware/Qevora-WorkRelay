@@ -158,7 +158,7 @@ export function FilesPage() {
                 </span>
                 <Badge tone={f.visibility === 'client' ? 'info' : 'neutral'}>{f.visibility === 'client' ? 'Client' : 'Internal'}</Badge>
               </div>
-              <p className="mt-2.5 truncate text-[13px] font-medium">{f.name}</p>
+              <p className="mt-2.5 break-all text-[13px] font-medium leading-snug">{f.name}</p>
               <p className="mt-0.5 text-[11.5px] text-muted">
                 {kindLabel[f.kind]} · {f.sizeLabel} · {f.version}
               </p>
